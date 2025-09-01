@@ -8,7 +8,7 @@
 // async function automatically() {
 //     try {
 //         // Sending a POST request
-//         let response = await axios.post('https://pyqapp.onrender.com/adminverifydownload/');
+//         let response = await axios.post('http://localhost:5000/adminverifydownload/');
 
 //         // Accessing the data from the response
 //         const data = response.data;
@@ -75,7 +75,7 @@ function CardForDetails() {
     // Function to fetch data
     async function fetchDetails() {
         try {
-            const response = await axios.post('https://pyqapp.onrender.com/adminverifydownload/');
+            const response = await axios.post('http://localhost:5000/adminverifydownload/');
             console.log(response.data); // Log the response to verify structure
 
             // Extract the unverifiedFiles array from the response
