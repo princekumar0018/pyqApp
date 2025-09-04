@@ -22,7 +22,7 @@
 //         }
 
 //         try {
-//             const response = await axios.post("http://localhost:5000/admindownload/search-files", { filename }, {
+//             const response = await axios.post("https://pyqapp.onrender.com/admindownload/search-files", { filename }, {
 //                 responseType: 'blob' // Set responseType to 'blob' to receive binary data
 //             });
 
@@ -133,7 +133,7 @@ const AdminDownloadPage = () => {
         }
 
         try {
-            const response = await axios.post("http://localhost:5000/admindownload/search-files", { filename: formattedFilename }, {
+            const response = await axios.post("https://pyqapp.onrender.com/admindownload/search-files", { filename: formattedFilename }, {
                 responseType: 'blob'
             });
 

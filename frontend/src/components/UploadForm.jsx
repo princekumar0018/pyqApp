@@ -34,7 +34,7 @@ function UploadForm() {
             formDataWithFile.append('file', file);
 
             const response = await axios.post(
-                "http://localhost:5000/student/upload-files",
+                "https://pyqapp.onrender.com/student/upload-files",
                 formDataWithFile
             );
             console.log(response.data.message);

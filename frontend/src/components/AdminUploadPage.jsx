@@ -26,7 +26,7 @@ const AdminUploadPage = () => {
             const formData = new FormData();
             formData.append('file', file);
             formData.append('filename', filename.toUpperCase());
-            const response = await axios.post('http://localhost:5000/adminupload/upload-files', formData);
+            const response = await axios.post('https://pyqapp.onrender.com/adminupload/upload-files', formData);
             console.log(response);
             setSubmitSuccess(true);
         } catch (err) {
