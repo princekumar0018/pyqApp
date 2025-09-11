@@ -18,7 +18,7 @@ async function initializeGridFSBucket() {
 }
 initializeGridFSBucket();
 
-// Controller function for uploading files
+
 const uploadFile = async (req, res) => {
     try {
         const file = req.file;

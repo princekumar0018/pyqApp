@@ -1,6 +1,6 @@
-require('dotenv').config(); // Load env variables
+require('dotenv').config(); 
 
-// Controller function for login
+
 const loginUser = async (req, res) => {
     const { email, password } = req.body;
 

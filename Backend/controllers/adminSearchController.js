@@ -16,7 +16,7 @@ async function initializeGridFSBucket() {
 }
 initializeGridFSBucket();
 
-// Controller function for searching and verifying files
+
 const searchAndVerifyFile = async (req, res) => {
     try {
         const fileName = req.body.filename;

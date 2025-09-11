@@ -5,7 +5,7 @@ const { searchFiles } = require('../controllers/searchController.js');
 const SearchRouter = express.Router();
 SearchRouter.use(cors());
 
-// Route for searching files
+
 SearchRouter.post('/search-files', searchFiles);
 
 module.exports = { SearchRouter };

@@ -1,34 +1,67 @@
-import React from 'react';
-import { Button } from 'react-bootstrap'; // Import Button component
-import NAV from './navbar';
+import React from "react";
+import { Button, Card, Container } from "react-bootstrap";
+import NAV from "./navbar";
 
-const AdminContent = ({handleContent}) => {
-    function handleDownload(e) {
-        handleContent(2)
-    }
+const AdminContent = ({ handleContent }) => {
+  function handleDownload() {
+    handleContent(2);
+  }
 
-    function handleUpload(e) {
-        handleContent(3)
-        
-    }
+  function handleUpload() {
+    handleContent(3);
+  }
 
-    return (
-        <div>
-            <div className="d-flex justify-content-center align-items-center vh-100 custom-bg">
-                <div className="d-flex flex-column">
-                    <NAV />
-                </div>
-                <div className="d-flex flex-column"> {/* Flex container for buttons */}
-                    <div className="mb-2"> {/* Margin between buttons */}
-                        <Button onClick={handleDownload}>Download Paper</Button>
-                    </div>
-                    <div>
-                        <Button onClick={handleUpload}>Upload Paper</Button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+  return (
+    <>
+      <NAV />
+      <Container
+        fluid
+        className="d-flex justify-content-center align-items-center"
+        style={{ minHeight: "90vh" }}
+      >
+        <Card
+          style={{
+            width: "420px",
+            padding: "30px",
+            borderRadius: "15px",
+            border: "none",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
+            textAlign: "center",
+          }}
+        >
+          <h2 className="mb-4" style={{ fontWeight: "600", color: "#0d6efd" }}>
+            Admin Panel
+          </h2>
+          <p className="mb-4 text-muted">Manage content below</p>
+          <div className="d-grid gap-3">
+            <Button
+              onClick={handleDownload}
+              size="lg"
+              style={{
+                borderRadius: "10px",
+                padding: "12px",
+                fontWeight: "500",
+              }}
+            >
+              📥 Download Paper
+            </Button>
+            <Button
+              onClick={handleUpload}
+              variant="success"
+              size="lg"
+              style={{
+                borderRadius: "10px",
+                padding: "12px",
+                fontWeight: "500",
+              }}
+            >
+              ⬆️ Upload Paper
+            </Button>
+          </div>
+        </Card>
+      </Container>
+    </>
+  );
 };
 
 export default AdminContent;
