@@ -18,10 +18,10 @@ initializeGridFSBucket();
 const uploadFile = async (req, res) => {
     try {
         const file = req.file;
-        const { year, branch, email, subjectcode } = req.body;
+        const { college, year, branch, email, subjectcode } = req.body;
 
-        if (!file) {
-            return res.status(400).send('No file was selected.');
+        if (!file || !college ) {
+            return res.status(400).send('Fill all required details.');
         }
 
         if (!gridFSBucket) {
@@ -30,6 +30,7 @@ const uploadFile = async (req, res) => {
 
         const uploadStream = gridFSBucket.openUploadStream(file.originalname, {
             metadata: {
+                college,
                 year,
                 branch,
                 email,

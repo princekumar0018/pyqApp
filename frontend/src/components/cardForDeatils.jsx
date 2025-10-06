@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
+import Cookies from "js-cookie";
 import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
@@ -11,12 +12,16 @@ function CardForDetails() {
   const [error, setError] = useState(null);
   const [openCard, setOpenCard] = useState({}); // Track which card is open
   const [copiedFiles, setCopiedFiles] = useState({}); // Track which files have been copied
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+  const token = Cookies.get("token");
 
   // Function to fetch data
   async function fetchDetails() {
     try {
-      const response = await axios.post(
-        "https://pyqapp.onrender.com/adminverifydownload/"
+      const response = await axios.get(
+        BACKEND_URL + "/adminverifydownload/", {
+        headers: { Authorization: `Bearer ${token}` }
+      }
       );
       console.log(response.data); // Log the response to verify structure
 
@@ -134,7 +139,7 @@ export default CardForDetails;
 // async function automatically() {
 //     try {
 //         // Sending a POST request
-//         let response = await axios.post('https://pyqapp.onrender.com/adminverifydownload/');
+//         let response = await axios.post('http://localhost:5000/adminverifydownload/');
 
 //         // Accessing the data from the response
 //         const data = response.data;

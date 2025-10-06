@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import NAV from '../components/navbar';
-import { Button } from 'react-bootstrap';
+import { useNavigate } from "react-router-dom";
 import AdminContent from '../components/adminContent';
-import Login from '../components/Login';
+import Register from '../components/Register';
 import AdminDownloadPage from '../components/AdminDownloadPage';
 import AdminUploadPage from '../components/AdminUploadPage';
 
-const Admin = () => {
+const AdminRegister = () => {
+    const navigate = useNavigate();
     const [check, setCheck] = useState(0);
-    const handleLogin = () => {
-        setCheck(1);
+    const handleRegister = () => {
+        navigate("/admin/login");
     };
 
     const handleContent = (val) => {
@@ -26,7 +26,7 @@ const Admin = () => {
 
     return (
         <>
-            {check === 0 ? <Login handleLogin={handleLogin} /> : null}
+            {check === 0 ? <Register handleRegister={handleRegister} /> : null}
             {check === 1 ? <AdminContent handleContent={handleContent} /> : null}
             {check === 2 ? <AdminDownloadPage handleDownload={handleDownload} /> : null}
             {check === 3 ? <AdminUploadPage handleUpload={handleUpload} /> : null}
@@ -34,4 +34,4 @@ const Admin = () => {
     );
 }
 
-export default Admin;
+export default AdminRegister;

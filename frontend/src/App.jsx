@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Previous from './pages/previous';
 import Upload from './pages/upload';
-import Admin from './pages/admin';
+import AdminLogin from './pages/adminLogin';
+import AdminRegister from './pages/adminRegister';
+import SuperAdminContent from './components/superAdminContent';
 
 function App() {
 
@@ -15,7 +17,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/previous" element={<Previous /> } />
           <Route path="/upload" element={<Upload /> } />
-          <Route path="/admin" element={<Admin /> } />
+          <Route path="/admin/login" element={<AdminLogin /> } />
+          <Route path="/admin/register" element={<AdminRegister /> } />
+          <Route path="/superadmin" element={<SuperAdminContent /> } />
         </Routes>
       </BrowserRouter>
     </div>

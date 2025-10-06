@@ -1,12 +1,13 @@
 {
   "scripts": {
-    "dev": "nodemon index.js",
+    "server": "nodemon index.js",
     "build": "npm i"
   },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.6.1",
     "email-otp-verify": "^1.1.1",
     "express": "^4.19.1",
     "fs": "^0.0.1-security",
@@ -14,10 +15,10 @@
     "jsonwebtoken": "^9.0.2",
     "mammoth": "^1.7.1",
     "mongodb": "^6.5.0",
-    "mongoose": "^8.2.3",
+    "mongoose": "^8.18.3",
     "multer": "^1.4.4",
     "multer-gridfs-storage": "^5.0.2",
-    "nodemon": "^3.1.0",
+    "nodemon": "^3.1.10",
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1"
   }

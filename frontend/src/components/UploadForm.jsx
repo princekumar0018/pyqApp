@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Card, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +11,34 @@ function UploadForm() {
     year: "",
     branch: "",
     subjectCode: "",
+    college: "",
+    examType: "", // ✅ Added new field
   });
+  const [colleges, setColleges] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+  // fetch colleges from API
+  useEffect(() => {
+    async function fetchColleges() {
+      try {
+        const res = await axios.get(BACKEND_URL + "/tools/colleges");
+
+        if (Array.isArray(res.data.value) && res.data.value[0]?.name) {
+          setColleges(res.data.value.map((c) => c.name));
+        } else if (Array.isArray(res.data)) {
+          setColleges(res.data);
+        } else {
+          setColleges([]);
+        }
+      } catch (err) {
+        console.error("Error fetching colleges:", err);
+        setError("⚠️ Could not load colleges. Please try again later.");
+      }
+    }
+    fetchColleges();
+  }, [BACKEND_URL]);
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -31,12 +57,15 @@ function UploadForm() {
       formDataWithFile.append("year", formData.year);
       formDataWithFile.append("branch", formData.branch);
       formDataWithFile.append("subjectcode", formData.subjectCode);
+      formDataWithFile.append("college", formData.college);
+      formDataWithFile.append("examType", formData.examType); // ✅ Added exam type
       formDataWithFile.append("file", file);
 
       const response = await axios.post(
-        "https://pyqapp.onrender.com/student/upload-files",
+        BACKEND_URL + "/student/upload-files",
         formDataWithFile
       );
+
       console.log(response.data.message);
       if (response.data.status === 1) {
         alert("✅ File uploaded successfully");
@@ -91,6 +120,25 @@ function UploadForm() {
               />
             </Form.Group>
 
+            {/* College Dropdown */}
+            <Form.Group className="mb-3" controlId="formGroupCollege">
+              <Form.Label style={{ fontWeight: "500" }}>Select College</Form.Label>
+              <Form.Select
+                name="college"
+                value={formData.college}
+                onChange={handleInputChange}
+                required
+                style={{ borderRadius: "10px", padding: "12px" }}
+              >
+                <option value="">-- Select College --</option>
+                {colleges.map((clg, index) => (
+                  <option key={index} value={clg}>
+                    {clg}
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+
             <Form.Group className="mb-3" controlId="formGroupYear">
               <Form.Label style={{ fontWeight: "500" }}>Select Year</Form.Label>
               <Form.Select
@@ -101,10 +149,10 @@ function UploadForm() {
                 style={{ borderRadius: "10px", padding: "12px" }}
               >
                 <option value="">Select Year</option>
-                <option value="1">1st</option>
-                <option value="2">2nd</option>
-                <option value="3">3rd</option>
-                <option value="4">4th</option>
+                <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
               </Form.Select>
             </Form.Group>
 
@@ -133,6 +181,22 @@ function UploadForm() {
                 onChange={handleInputChange}
                 style={{ borderRadius: "10px", padding: "12px" }}
               />
+            </Form.Group>
+
+            {/* ✅ Exam Type Dropdown */}
+            <Form.Group className="mb-3" controlId="formGroupExamType">
+              <Form.Label style={{ fontWeight: "500" }}>Exam Type</Form.Label>
+              <Form.Select
+                name="examType"
+                value={formData.examType}
+                onChange={handleInputChange}
+                required
+                style={{ borderRadius: "10px", padding: "12px" }}
+              >
+                <option value="">Select Exam Type</option>
+                <option value="2">Mid Semester</option>
+                <option value="1">End Semester</option>
+              </Form.Select>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGroupFile">
@@ -166,6 +230,8 @@ function UploadForm() {
                 "Upload"
               )}
             </Button>
+
+            {error && <p className="text-danger mt-3 text-center">{error}</p>}
           </Form>
         </Card.Body>
       </Card>

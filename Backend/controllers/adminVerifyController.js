@@ -1,7 +1,7 @@
 const { GridFSBucket, MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const dbName = 'pyq';
+const dbName = 'pyqq';
 const connectToDatabase = require('../config/dbStudentUpload.js');
 
 const mongoURI = process.env.mongoURL;
@@ -20,18 +20,18 @@ initializeGridFSBucket();
 const getUnverifiedFiles = async (req, res) => {
     try {
         const db = client.db(dbName);
-
+        console.log(req.user.college)
         const result = await db
             .collection('fs.files')
-            .find({ "metadata.verified": 0 })
+            .find({ "metadata.verified": 0,"metadata.college":req.user.college })
             .toArray();
 
         console.log(result);
 
         // Extract and process filenames (optional cleanup)
-        const array = result
-            .map(file => file.filename ? file.filename.slice(0, -4) : null)
-            .filter(filename => filename !== null);
+        // const array = result
+        //     .map(file => file.filename ? file.filename.slice(0, -4) : null)
+        //     .filter(filename => filename !== null);
 
         res.status(200).json({ unverifiedFiles: result });
     } catch (error) {

@@ -3,7 +3,7 @@ const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 
 const mongoURI = process.env.mongoURL;
-const dbName = "pyq";
+const dbName = "pyqq";
 
 const client = new MongoClient(mongoURI);
 

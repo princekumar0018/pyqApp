@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Spinner, Card } from "react-bootstrap";
+import { Form, Button, Spinner, Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";   // ✅ import
 import "../App.css";
 
 const Login = ({ handleLogin }) => {
@@ -8,22 +10,31 @@ const Login = ({ handleLogin }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post(
-        "https://pyqapp.onrender.com/login/",
-        {
-          email,
-          password,
+      const response = await axios.post(BACKEND_URL + "/user/login/", {
+        email,
+        password,
+      });
+
+      if (response.data.status === 200) {
+        // ✅ Save token in cookies (expires in 7 days)
+        if (response.data.token) {
+          Cookies.set("token", response.data.token, { expires: 7, secure: true });
         }
-      );
-      if (response.data.status === 1) {
-        handleLogin();
+
+        if (response.data.superAdmin) {
+          navigate("/superadmin");
+        } else {
+          handleLogin();
+        }
       } else {
-        setError("Invalid email or password");
+        setError(response.data.message);
       }
     } catch (error) {
       console.error("Login error:", error);
