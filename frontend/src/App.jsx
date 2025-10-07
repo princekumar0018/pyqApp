@@ -6,6 +6,8 @@ import Upload from './pages/upload';
 import AdminLogin from './pages/adminLogin';
 import AdminRegister from './pages/adminRegister';
 import SuperAdminContent from './components/superAdminContent';
+import EvaluateSolution from './pages/evaluateSolution';
+import Meet from './pages/meet';
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
           <Route path="/admin/login" element={<AdminLogin /> } />
           <Route path="/admin/register" element={<AdminRegister /> } />
           <Route path="/superadmin" element={<SuperAdminContent /> } />
+          <Route path="/evaluate" element={<EvaluateSolution /> } />
+          <Route path="/meet" element={<Meet /> } />
         </Routes>
       </BrowserRouter>
     </div>

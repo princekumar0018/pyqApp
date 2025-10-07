@@ -13,6 +13,7 @@ const cors = require('cors');
 // Database connection helper
 const connectToDatabase = require('./config/bdUser');
 const { toolsRouter } = require('./routes/Tools.route');
+const { meetRouter } = require('./routes/Meet.routes');
 connectToDatabase();
 const port = process.env.PORT || 3000;
 
@@ -34,6 +35,12 @@ app.use('/search', SearchRouter);
 app.use('/user', userRouter);
 app.use('/superadmin', superadminRouter);
 app.use('/tools', toolsRouter)
+app.use('/meet', meetRouter)
+
+// const server = http.createServer(app);
+
+// // 🧩 Initialize Socket.io (from external module)
+// require("./socket/socketServer")(server);
 
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);

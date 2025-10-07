@@ -1,14 +1,25 @@
 import React from "react";
 import { Button, Card, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import NAV from "./navbar";
 
 const AdminContent = ({ handleContent }) => {
+  const navigate = useNavigate();
+
   function handleDownload() {
     handleContent(2);
   }
 
   function handleUpload() {
     handleContent(3);
+  }
+
+  function handleEvaluate() {
+    navigate("/evaluate")
+  }
+
+  function handleMeet() {
+    navigate("/meet")
   }
 
   return (
@@ -33,6 +44,7 @@ const AdminContent = ({ handleContent }) => {
             Admin Panel
           </h2>
           <p className="mb-4 text-muted">Manage content below</p>
+
           <div className="d-grid gap-3">
             <Button
               onClick={handleDownload}
@@ -45,6 +57,7 @@ const AdminContent = ({ handleContent }) => {
             >
               📥 Download Paper
             </Button>
+
             <Button
               onClick={handleUpload}
               variant="success"
@@ -57,6 +70,35 @@ const AdminContent = ({ handleContent }) => {
             >
               ⬆️ Upload Paper
             </Button>
+
+            <Button
+              onClick={handleEvaluate}
+              variant="info"
+              size="lg"
+              style={{
+                borderRadius: "10px",
+                padding: "12px",
+                fontWeight: "500",
+                color: "white",
+              }}
+            >
+              🧠 Check Paper
+            </Button>
+
+            <Button
+              onClick={handleMeet}
+              variant="info"
+              size="lg"
+              style={{
+                borderRadius: "10px",
+                padding: "12px",
+                fontWeight: "500",
+                color: "white",
+              }}
+            >
+              Ⓜ️ Meet
+            </Button>
+
           </div>
         </Card>
       </Container>
