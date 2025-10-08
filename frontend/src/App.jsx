@@ -7,7 +7,7 @@ import AdminLogin from './pages/adminLogin';
 import AdminRegister from './pages/adminRegister';
 import SuperAdminContent from './components/superAdminContent';
 import EvaluateSolution from './pages/evaluateSolution';
-import Meet from './pages/meet';
+import Meet from './pages/Meet';
 
 function App() {
 

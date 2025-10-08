@@ -1,199 +1,233 @@
-// import React, { useEffect, useRef, useState } from "react";
-// import io from "socket.io-client";
-// import Peer from "simple-peer";
+import React, { useEffect, useRef, useState } from "react";
+import {
+	MeetingProvider,
+	useMeeting,
+	useParticipant,
+} from "@videosdk.live/react-sdk";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
+import MeetingView from "../components/MeetingView";
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-// const socket = io("http://localhost:5000"); // backend signaling server
 
-// const Meet = () => {
-//   const [roomId, setRoomId] = useState("");
-//   const [joined, setJoined] = useState(false);
-//   const [remoteJoined, setRemoteJoined] = useState(false);
-//   const [isMuted, setIsMuted] = useState(false);
-//   const [isCameraOff, setIsCameraOff] = useState(false);
+// ========================
+// 🎥 Participant component
+// ========================
+const ParticipantView = ({ participantId }) => {
+	const { webcamStream, micStream, webcamOn, micOn, displayName } =
+		useParticipant(participantId);
+	const videoRef = useRef(null);
 
-//   const myVideo = useRef();
-//   const userVideo = useRef();
-//   const peerRef = useRef();
-//   const streamRef = useRef();
+	useEffect(() => {
+		if (webcamOn && videoRef.current) {
+			const mediaStream = new MediaStream();
+			mediaStream.addTrack(webcamStream.track);
+			videoRef.current.srcObject = mediaStream;
+			videoRef.current.play();
+		}
+	}, [webcamOn, webcamStream]);
 
-//   // 🔹 Initialize socket listeners
+	return (
+		<div className="flex flex-col items-center bg-gray-800 p-3 rounded-lg shadow-md">
+			<h3 className="text-white text-sm mb-2">{displayName}</h3>
+			<video ref={videoRef} autoPlay playsInline width="300" className="rounded-lg" />
+		</div>
+	);
+};
+
+// ========================
+// 🎮 Meeting Controls
+// ========================
+const Controls = ({ onLeave }) => {
+	const { leave, toggleMic, toggleWebcam } = useMeeting();
+	return (
+		<div className="flex gap-3 mt-4">
+			<button onClick={toggleMic} className="bg-gray-700 px-3 py-2 rounded">
+				Toggle Mic
+			</button>
+			<button onClick={toggleWebcam} className="bg-gray-700 px-3 py-2 rounded">
+				Toggle Camera
+			</button>
+			<button
+				onClick={() => {
+					leave();
+					onLeave();
+				}}
+				className="bg-red-700 px-3 py-2 rounded"
+			>
+				Leave
+			</button>
+		</div>
+	);
+};
+
+// ========================
+// 🧑 Meeting View
+// ========================
+// const MeetingView = ({ meetingId, onLeave }) => {
+//   const { join, participants } = useMeeting({
+//     onMeetingJoined: () => console.log("✅ Joined Meeting"),
+//   });
+
 //   useEffect(() => {
-//     socket.on("user-joined", (id) => {
-//       console.log("Another user joined:", id);
-//       callUser(id);
-//     });
-
-//     socket.on("signal", handleSignal);
-
-//     return () => {
-//       socket.disconnect();
-//     };
-//   }, []);
-
-//   // 🔹 Join a room
-//   const joinRoom = async () => {
-//     if (!roomId) return alert("Enter a room ID");
-//     setJoined(true);
-
-//     const stream = await navigator.mediaDevices.getUserMedia({
-//       video: true,
-//       audio: true,
-//     });
-//     streamRef.current = stream;
-//     myVideo.current.srcObject = stream;
-//     myVideo.current.play();
-
-//     socket.emit("join-room", roomId);
-//   };
-
-//   // 🔹 Handle incoming signals
-//   const handleSignal = async ({ from, signal }) => {
-//     if (!peerRef.current) {
-//       const peer = new Peer({
-//         initiator: false,
-//         trickle: false,
-//         stream: streamRef.current,
-//       });
-//       peer.on("signal", (sig) => {
-//         socket.emit("signal", { signal: sig, to: from });
-//       });
-//       peer.on("stream", (remoteStream) => {
-//         userVideo.current.srcObject = remoteStream;
-//         setRemoteJoined(true);
-//       });
-//       peer.signal(signal);
-//       peerRef.current = peer;
-//     } else {
-//       peerRef.current.signal(signal);
-//     }
-//   };
-
-//   // 🔹 Call another user
-//   const callUser = (id) => {
-//     const peer = new Peer({
-//       initiator: true,
-//       trickle: false,
-//       stream: streamRef.current,
-//     });
-//     peer.on("signal", (signal) => {
-//       socket.emit("signal", { signal, to: id });
-//     });
-//     peer.on("stream", (remoteStream) => {
-//       userVideo.current.srcObject = remoteStream;
-//       setRemoteJoined(true);
-//     });
-//     peerRef.current = peer;
-//   };
-
-//   // 🔹 Mute/Unmute
-//   const toggleMute = () => {
-//     if (!streamRef.current) return;
-//     const audioTrack = streamRef.current.getAudioTracks()[0];
-//     audioTrack.enabled = !audioTrack.enabled;
-//     setIsMuted(!audioTrack.enabled);
-//   };
-
-//   // 🔹 Camera on/off
-//   const toggleCamera = () => {
-//     if (!streamRef.current) return;
-//     const videoTrack = streamRef.current.getVideoTracks()[0];
-//     videoTrack.enabled = !videoTrack.enabled;
-//     setIsCameraOff(!videoTrack.enabled);
-//   };
-
-//   // 🔹 Leave the call
-//   const leaveCall = () => {
-//     peerRef.current?.destroy();
-//     streamRef.current?.getTracks().forEach((t) => t.stop());
-//     setJoined(false);
-//     setRemoteJoined(false);
-//     socket.disconnect();
-//   };
+//     join();
+//   }, [join]);
 
 //   return (
 //     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-//       {!joined ? (
-//         <div className="p-6 bg-gray-800 rounded-xl shadow-lg">
-//           <h2 className="text-xl font-bold mb-3">Join a Meeting</h2>
-//           <input
-//             type="text"
-//             className="p-2 rounded w-64 text-black mb-3"
-//             placeholder="Enter Room ID"
-//             value={roomId}
-//             onChange={(e) => setRoomId(e.target.value)}
-//           />
-//           <button
-//             onClick={joinRoom}
-//             className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded"
-//           >
-//             Join Room
-//           </button>
-//         </div>
-//       ) : (
-//         <div className="flex flex-col items-center gap-4">
-//           <div className="flex gap-4">
-//             <video
-//               ref={myVideo}
-//               muted
-//               autoPlay
-//               playsInline
-//               className="rounded-lg border-2 border-blue-500 w-72"
-//             />
-//             {remoteJoined ? (
-//               <video
-//                 ref={userVideo}
-//                 autoPlay
-//                 playsInline
-//                 className="rounded-lg border-2 border-green-500 w-72"
-//               />
-//             ) : (
-//               <div className="w-72 h-52 flex items-center justify-center bg-gray-700 rounded-lg">
-//                 Waiting for other user...
-//               </div>
-//             )}
-//           </div>
+//       <h2 className="text-xl font-bold mb-3">Meeting ID: {meetingId}</h2>
 
-//           <div className="flex gap-3 mt-4">
-//             <button
-//               onClick={toggleMute}
-//               className={`px-4 py-2 rounded ${
-//                 isMuted ? "bg-red-600" : "bg-gray-700"
-//               }`}
-//             >
-//               {isMuted ? "Unmute" : "Mute"}
-//             </button>
-//             <button
-//               onClick={toggleCamera}
-//               className={`px-4 py-2 rounded ${
-//                 isCameraOff ? "bg-red-600" : "bg-gray-700"
-//               }`}
-//             >
-//               {isCameraOff ? "Turn Camera On" : "Turn Camera Off"}
-//             </button>
-//             <button
-//               onClick={leaveCall}
-//               className="bg-red-700 hover:bg-red-800 px-4 py-2 rounded"
-//             >
-//               Leave
-//             </button>
-//           </div>
+//       <div className="flex flex-wrap justify-center gap-4">
+//         {[...participants.keys()].map((id) => (
+//           <ParticipantView key={id} participantId={id} />
+//         ))}
+//       </div>
 
-//           <p className="text-sm mt-3">Room ID: {roomId}</p>
-//         </div>
-//       )}
+//       <Controls onLeave={onLeave} />
 //     </div>
 //   );
 // };
 
-// export default Meet;
+// ========================
+// 🚪 Join Screen
+// ========================
+function JoinScreen({ getMeetingAndToken }) {
+	const [meetingId, setMeetingId] = useState("");
 
+	// When user clicks "Join" or "Create"
+	const handleJoin = async () => {
+		if (!meetingId) {
+			alert("Please enter a meeting ID or create one.");
+			return;
+		}
+		await getMeetingAndToken(meetingId); // join existing meeting
+	};
 
-import React from 'react'
+	const handleCreate = async () => {
+		await getMeetingAndToken(null); // create a new meeting
+	};
 
-const Meet = () => {
-  return (
-    <div>Meet</div>
-  )
+	return (
+		<div
+			style={{
+				height: "100vh",
+				background: "#111",
+				color: "#fff",
+				display: "flex",
+				flexDirection: "column",
+				alignItems: "center",
+				justifyContent: "center",
+				gap: "10px",
+			}}
+		>
+			<h2>Join or Create a Meeting</h2>
+
+			<input
+				type="text"
+				placeholder="Enter Meeting ID"
+				value={meetingId}
+				onChange={(e) => setMeetingId(e.target.value)}
+				style={{
+					padding: "8px",
+					borderRadius: "6px",
+					border: "1px solid #444",
+					width: "250px",
+					textAlign: "center",
+				}}
+			/>
+
+			<div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+				<button
+					onClick={handleJoin}
+					style={{
+						backgroundColor: "#28a745",
+						border: "none",
+						color: "#fff",
+						padding: "8px 16px",
+						borderRadius: "6px",
+						cursor: "pointer",
+					}}
+				>
+					Join Meeting
+				</button>
+
+				<button
+					onClick={handleCreate}
+					style={{
+						backgroundColor: "#007bff",
+						border: "none",
+						color: "#fff",
+						padding: "8px 16px",
+						borderRadius: "6px",
+						cursor: "pointer",
+					}}
+				>
+					Create Meeting
+				</button>
+			</div>
+		</div>
+	);
 }
 
-export default Meet
+
+// ========================
+// 🚀 Main Component
+// ========================
+const Meet = () => {
+	const [meetingId, setMeetingId] = useState(null);
+	const [token, setToken] = useState("");
+	const [participantName, setParticipantName] = useState("");
+
+	// 1️⃣ Create or join a meeting
+	const getMeetingAndToken = async (id, name) => {
+		try {
+			let newMeetingId;
+
+			// 🟢 If no meeting ID is provided → create a new meeting
+			if (!id) {
+				const res = await axios.post(BACKEND_URL+"/meet/create-room");
+				newMeetingId = res.data.roomId;
+				console.log("🆕 Created new meeting:", newMeetingId);
+			} else {
+				// 🟡 If user provided a meeting ID → join that meeting
+				newMeetingId = id;
+				console.log("🔗 Joining existing meeting:", newMeetingId);
+			}
+
+			// ✅ Set participant info and token
+			setMeetingId(newMeetingId);
+			setParticipantName(name || "Guest-" + uuidv4().slice(0, 4));
+
+			const token = import.meta.env.VITE_VIDEOSDK_TOKEN;
+			console.log("✅ VideoSDK Token Loaded:", token);
+
+			setToken(token);
+		} catch (err) {
+			console.error("❌ Error creating or joining meeting:", err);
+			alert("Something went wrong while joining the meeting. Check console for details.");
+		}
+	};
+
+
+	const onMeetingLeave = () => {
+		setMeetingId(null);
+	};
+
+	return token && meetingId ? (
+		<MeetingProvider
+			config={{
+				meetingId,
+				micEnabled: true,
+				webcamEnabled: true,
+				name: participantName,
+			}}
+			token={token}
+		>
+			<MeetingView meetingId={meetingId} onLeave={onMeetingLeave} />
+		</MeetingProvider>
+	) : (
+		<JoinScreen getMeetingAndToken={getMeetingAndToken} />
+	);
+};
+
+export default Meet;

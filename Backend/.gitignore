@@ -12,8 +12,15 @@ dist
 dist-ssr
 *.local
 .env
+package-lock.json
+package.json
 E:/mern/pyq/Backend/.env
 Backend/.env 
+Backend/package-lock.json
+Backend/package.json
+E:/mern/pyq/Backend/package-lock.json
+E:/mern/pyq/Backend/package.json
+
 
 # Editor directories and files
 .vscode/*

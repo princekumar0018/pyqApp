@@ -96,11 +96,8 @@ Return JSON:
             }
         } catch (error) {
             console.error("❌ JSON parsing failed:", error.message);
-            // return res.status(500).json({
-            //     error: "Invalid JSON format from model",
-            //     rawResponse: cleanText,
-            // });
-        return res.json({ result: result });
+            const resultFinal = await callGeminiAPI(error.message + "correct this error in below json" + result);
+            return res.json({ result: resultFinal });
 
         }
 

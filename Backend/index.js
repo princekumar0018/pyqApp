@@ -37,10 +37,6 @@ app.use('/superadmin', superadminRouter);
 app.use('/tools', toolsRouter)
 app.use('/meet', meetRouter)
 
-// const server = http.createServer(app);
-
-// // 🧩 Initialize Socket.io (from external module)
-// require("./socket/socketServer")(server);
 
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
