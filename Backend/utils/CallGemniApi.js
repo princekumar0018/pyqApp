@@ -18,9 +18,24 @@ async function callGeminiAPI(prompt) {
             "x-goog-api-key": GEMINI_API_KEY,
         },
         body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
+            // 🧠 Set system-level behavior here
+            system_instruction: {
+                parts: [
+                    {
+                        text:
+                            "You are a helpful teaching assistant that compares model answers with student answers and provides constructive, structured feedback.",
+                    },
+                ],
+            },
+            contents: [
+                {
+                    role: "user",
+                    parts: [{ text: prompt }],
+                },
+            ],
         }),
-    })
+    });
+
 
     if (!response.ok) {
         const errorData = await response.json().catch(() => ({ message: response.statusText }))
