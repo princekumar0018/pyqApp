@@ -1,13 +1,21 @@
 import React, { useEffect, useRef } from "react";
-import { useParticipant, VideoPlayer } from "@videosdk.live/react-sdk";
+import { useParticipant, VideoPlayer, usePubSub } from "@videosdk.live/react-sdk";
 
 function ParticipantView({ participantId }) {
   const micRef = useRef(null);
 
+  // ✅ Always define this first
   const { micStream, webcamOn, micOn, isLocal, displayName } =
     useParticipant(participantId);
 
-  // 🔊 Play participant's mic audio
+  // ✅ Store local participant ID (for focus mode)
+  useEffect(() => {
+    if (isLocal) {
+      localStorage.setItem("participantId", participantId);
+    }
+  }, [isLocal, participantId]);
+
+  // ✅ Handle mic audio playback
   useEffect(() => {
     if (micRef.current) {
       if (micOn && micStream) {
@@ -26,15 +34,23 @@ function ParticipantView({ participantId }) {
     }
   }, [micStream, micOn]);
 
+  // ✅ Optional: Highlight focused participant (if you added focus mode)
+  const { messages } = usePubSub("focus-mode");
+  const focusedParticipantId = messages?.length
+    ? messages[messages.length - 1].message
+    : null;
+  const isFocused = participantId === focusedParticipantId;
+
   return (
     <div
       style={{
-        background: "#222",
+        background: isFocused ? "#007bff" : "#222",
+        transform: isFocused ? "scale(1.05)" : "scale(1)",
+        transition: "all 0.3s ease",
         padding: "10px",
         borderRadius: "10px",
         color: "#fff",
         textAlign: "center",
-        width: "320px",
       }}
     >
       <p>
@@ -42,7 +58,7 @@ function ParticipantView({ participantId }) {
         {micOn ? "ON" : "OFF"}
       </p>
 
-      {/* 🔊 Audio for participant */}
+      {/* 🔊 Mic audio */}
       <audio ref={micRef} autoPlay playsInline muted={isLocal} />
 
       {/* 🎥 Video feed */}
@@ -51,18 +67,12 @@ function ParticipantView({ participantId }) {
           participantId={participantId}
           type="video"
           containerStyle={{
-            width: "80vw",          // 80% of the screen width
-            height: "auto",
-            maxHeight: "80vh",      // keep it inside the viewport
-            borderRadius: "16px",
+            width: "100%",
+            aspectRatio: "16 / 9",
+            borderRadius: "12px",
             overflow: "hidden",
-            margin: "auto",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.6)",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.4)",
           }}
-
-
-          className="video-tile"
-          classNameVideo="h-full"
           videoStyle={{
             objectFit: "cover",
           }}

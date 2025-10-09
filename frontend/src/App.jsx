@@ -17,13 +17,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/previous" element={<Previous /> } />
-          <Route path="/upload" element={<Upload /> } />
-          <Route path="/admin/login" element={<AdminLogin /> } />
-          <Route path="/admin/register" element={<AdminRegister /> } />
-          <Route path="/superadmin" element={<SuperAdminContent /> } />
-          <Route path="/evaluate" element={<EvaluateSolution /> } />
-          <Route path="/meet" element={<Meet /> } />
+          <Route path="/previous" element={<Previous />} />
+          <Route path="/upload" element={<Upload />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/register" element={<AdminRegister />} />
+          <Route path="/superadmin" element={<SuperAdminContent />} />
+          <Route path="/evaluate" element={<EvaluateSolution />} />
+          <Route path="/meet" element={<Meet />} />
         </Routes>
       </BrowserRouter>
     </div>
