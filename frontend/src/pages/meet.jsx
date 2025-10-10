@@ -61,32 +61,7 @@ const Controls = ({ onLeave }) => {
 	);
 };
 
-// ========================
-// 🧑 Meeting View
-// ========================
-// const MeetingView = ({ meetingId, onLeave }) => {
-//   const { join, participants } = useMeeting({
-//     onMeetingJoined: () => console.log("✅ Joined Meeting"),
-//   });
 
-//   useEffect(() => {
-//     join();
-//   }, [join]);
-
-//   return (
-//     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
-//       <h2 className="text-xl font-bold mb-3">Meeting ID: {meetingId}</h2>
-
-//       <div className="flex flex-wrap justify-center gap-4">
-//         {[...participants.keys()].map((id) => (
-//           <ParticipantView key={id} participantId={id} />
-//         ))}
-//       </div>
-
-//       <Controls onLeave={onLeave} />
-//     </div>
-//   );
-// };
 
 // ========================
 // 🚪 Join Screen

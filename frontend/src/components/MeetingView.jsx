@@ -16,7 +16,6 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 	const streamRef = useRef(null);
 	const summaryContainerRef = useRef(null);
 
-	// Auto-scroll to latest summary
 	useEffect(() => {
 		if (summaryContainerRef.current) {
 			summaryContainerRef.current.scrollTop =
