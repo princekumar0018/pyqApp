@@ -59,9 +59,13 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 					);
 
 					const data = res.data;
-					console.log(data.result);
-					
-					if (data.result && typeof data.result === "string" && data.result.trim() !== "" && data.result!=="Null" && data.result!=="null") {
+					if (
+						data.result &&
+						typeof data.result === "string" &&
+						data.result.trim() !== "" &&
+						data.result !== "null" &&
+						data.result !== "Null"
+					) {
 						setSummaries((prev) => [...prev, data.result.trim()]);
 					}
 				} catch (error) {
@@ -79,7 +83,7 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 					mediaRecorder.stop();
 					mediaRecorder.start();
 				}
-			}, 8000);
+			}, 20000);
 		} catch (error) {
 			console.error("❌ Audio capture failed:", error);
 		}
@@ -129,131 +133,152 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 	return (
 		<div
 			style={{
-				display: "flex",
+				position: "relative",
 				background: "#111",
 				color: "#fff",
 				minHeight: "100vh",
 				overflow: "hidden",
 			}}
 		>
-			{/* 🧠 Sidebar - AI Summarizer */}
+			{/* 🧠 Floating Sidebar Overlay */}
 			<div
 				style={{
-					width: isSidebarOpen ? "400px" : "0px",
+					position: "fixed",
+					right: isSidebarOpen ? "0" : "-470px",
+					top: 0,
+					height: "100vh",
+					width: "450px",
 					backgroundColor: "#1e1e1e",
-					padding: isSidebarOpen ? "20px" : "0px",
-					transition: "all 0.3s ease",
-					overflowY: "auto",
-					borderRight: isSidebarOpen ? "1px solid #333" : "none",
+					boxShadow: "0 0 20px rgba(0,0,0,0.6)",
+					padding: "20px",
+					transition: "right 0.3s ease",
+					zIndex: 1000,
+					display: "flex",
+					flexDirection: "column",
 				}}
 			>
-				{isSidebarOpen && (
-					<>
-						<h2 style={{ color: "#00bfff", marginBottom: "15px" }}>🧠 AI Summarizer</h2>
-
-						<div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
-							{!isRecording ? (
-								<button
-									onClick={startGeminiSummarizer}
-									style={{
-										backgroundColor: "#007bff",
-										color: "#fff",
-										border: "none",
-										padding: "10px 15px",
-										borderRadius: "6px",
-										cursor: "pointer",
-										fontWeight: "600",
-									}}
-								>
-									Start Summary
-								</button>
-							) : (
-								<button
-									onClick={stopGeminiSummarizer}
-									style={{
-										backgroundColor: "#dc3545",
-										color: "#fff",
-										border: "none",
-										padding: "10px 15px",
-										borderRadius: "6px",
-										cursor: "pointer",
-										fontWeight: "600",
-									}}
-								>
-									Stop Summary
-								</button>
-							)}
-						</div>
-
-						{isSummarizing && (
-							<p style={{ color: "#00bfff", fontStyle: "italic" }}>
-								Analyzing audio...
-							</p>
-						)}
-
-						<div
-							ref={summaryContainerRef}
-							style={{
-								maxHeight: "75vh",
-								overflowY: "auto",
-								paddingRight: "8px",
-								scrollbarWidth: "thin",
-							}}
-						>
-							{summaries.length > 0 ? (
-								summaries.map((s, i) => (
-									<p
-										key={i}
-										style={{
-											backgroundColor: "#2a2a2a",
-											marginBottom: "12px",
-											padding: "12px",
-											borderRadius: "10px",
-											fontSize: "16px",
-											lineHeight: "1.5",
-										}}
-									>
-										{s}
-									</p>
-								))
-							) : (
-								<p style={{ color: "#888" }}>Waiting for summaries...</p>
-							)}
-						</div>
-					</>
-				)}
-			</div>
-
-			{/* 🎥 Right Main Area */}
-			<div style={{ flexGrow: 1, padding: "20px", position: "relative" }}>
-				{/* Floating button to open AI summarizer */}
-				{!isSidebarOpen && (
+				{/* Header and Close Button */}
+				<div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+					<h2 style={{ color: "#00bfff", margin: 0 }}> AI Summary</h2>
 					<button
-						onClick={() => setIsSidebarOpen(true)}
+						onClick={() => setIsSidebarOpen(false)}
 						style={{
-							position: "absolute",
-							left: "15px",
-							top: "15px",
-							backgroundColor: "#00bfff",
-							color: "#fff",
+							backgroundColor: "transparent",
 							border: "none",
-							padding: "10px 15px",
-							borderRadius: "6px",
+							color: "#fff",
+							fontSize: "22px",
 							cursor: "pointer",
-							fontWeight: "600",
 						}}
 					>
-						🧠 AI Summarizer
+						CLOSE
 					</button>
+				</div>
+
+				{/* Controls */}
+				<div style={{ display: "flex", gap: "10px", marginTop: "20px" }}>
+					{!isRecording ? (
+						<button
+							onClick={startGeminiSummarizer}
+							style={{
+								backgroundColor: "#007bff",
+								color: "#fff",
+								border: "none",
+								padding: "10px 15px",
+								borderRadius: "6px",
+								cursor: "pointer",
+								fontWeight: "600",
+							}}
+						>
+							Start Summary
+						</button>
+					) : (
+						<button
+							onClick={stopGeminiSummarizer}
+							style={{
+								backgroundColor: "#dc3545",
+								color: "#fff",
+								border: "none",
+								padding: "10px 15px",
+								borderRadius: "6px",
+								cursor: "pointer",
+								fontWeight: "600",
+							}}
+						>
+							Stop Summary
+						</button>
+					)}
+				</div>
+
+				{isSummarizing && (
+					<p style={{ color: "#00bfff", fontStyle: "italic", marginTop: "10px" }}>
+						Analyzing audio...
+					</p>
 				)}
 
-				{/* Header */}
+				{/* Summaries */}
+				<div
+					ref={summaryContainerRef}
+					style={{
+						flexGrow: 1,
+						marginTop: "20px",
+						overflowY: "auto",
+						scrollbarWidth: "thin",
+						paddingRight: "8px",
+					}}
+				>
+					{summaries.length > 0 ? (
+						summaries.map((s, i) => (
+							<p
+								key={i}
+								style={{
+									backgroundColor: "#2a2a2a",
+									marginBottom: "12px",
+									padding: "14px",
+									borderRadius: "10px",
+									fontSize: "17px",
+									lineHeight: "1.6",
+								}}
+							>
+								{s}
+							</p>
+						))
+					) : (
+						<p style={{ color: "#888" }}>Waiting for summaries...</p>
+					)}
+				</div>
+			</div>
+
+			{/* 🎥 Floating open button */}
+			{!isSidebarOpen && (
+				<button
+					onClick={() => setIsSidebarOpen(true)}
+					style={{
+						position: "fixed",
+						right: "20px",
+						top: "20px",
+						backgroundColor: "#00bfff",
+						color: "#fff",
+						border: "none",
+						padding: "12px 18px",
+						borderRadius: "8px",
+						cursor: "pointer",
+						fontWeight: "600",
+						boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
+						zIndex: 999,
+					}}
+				>
+					🧠 AI Summarizer
+				</button>
+			)}
+
+			{/* 🎥 Main Meeting Content */}
+			<div style={{ padding: "20px" }}>
 				<h2 style={{ textAlign: "center" }}>Meeting ID: {meetingId}</h2>
 
 				{joined === "JOINED" ? (
 					<div style={{ textAlign: "center", marginTop: "20px" }}>
-						{/* ✅ Meeting Controls */}
-						<div style={{ marginTop: "10px", textAlign: "center" }}>
+						{/* Meeting Controls */}
+						<div style={{ marginTop: "10px" }}>
 							{focusedParticipantId ? (
 								<button
 									onClick={() => publish(null)}
@@ -287,7 +312,7 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 
 						<Controls />
 
-						{/* 🎥 Participants Area */}
+						{/* Participants */}
 						{focusedParticipantId ? (
 							<div style={{ textAlign: "center", marginTop: "30px" }}>
 								<ParticipantView participantId={focusedParticipantId} />
@@ -304,12 +329,12 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 										participants.size === 1
 											? "1fr"
 											: participants.size === 2
-												? "repeat(2, 1fr)"
-												: participants.size <= 4
-													? "repeat(2, 1fr)"
-													: participants.size <= 6
-														? "repeat(3, 1fr)"
-														: "repeat(auto-fill, minmax(300px, 1fr))",
+											? "repeat(2, 1fr)"
+											: participants.size <= 4
+											? "repeat(2, 1fr)"
+											: participants.size <= 6
+											? "repeat(3, 1fr)"
+											: "repeat(auto-fill, minmax(300px, 1fr))",
 								}}
 							>
 								{[...participants.keys()].map((participantId) => (

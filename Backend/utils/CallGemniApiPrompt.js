@@ -2,7 +2,7 @@ const fetch = require("node-fetch")
 require("dotenv").config()
 
 const GEMINI_API_KEY = process.env.GEMNI_API_KEY
-const GEMINI_API_URL = process.env.GEMNI_API
+const GEMINI_API_URL = process.env.GEMNI_API_PRO
 
 async function callGeminiAPI(prompt) {
     console.log("Gemni api called");
