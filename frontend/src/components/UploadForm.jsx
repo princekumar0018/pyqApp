@@ -7,9 +7,7 @@ function UploadForm() {
   const navigate = useNavigate();
   const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({
-    email: "",
     year: "",
-    branch: "",
     subjectCode: "",
     college: "",
     examType: "", // ✅ Added new field
@@ -53,9 +51,7 @@ function UploadForm() {
     setLoading(true);
     try {
       const formDataWithFile = new FormData();
-      formDataWithFile.append("email", formData.email);
       formDataWithFile.append("year", formData.year);
-      formDataWithFile.append("branch", formData.branch);
       formDataWithFile.append("subjectcode", formData.subjectCode);
       formDataWithFile.append("college", formData.college);
       formDataWithFile.append("examType", formData.examType); // ✅ Added exam type
@@ -105,21 +101,6 @@ function UploadForm() {
             Student File Upload
           </h2>
           <Form onSubmit={handleUpload}>
-            <Form.Group className="mb-3" controlId="formGroupEmail">
-              <Form.Label style={{ fontWeight: "500" }}>
-                Email Address
-              </Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                placeholder="Enter college email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                style={{ borderRadius: "10px", padding: "12px" }}
-              />
-            </Form.Group>
-
             {/* College Dropdown */}
             <Form.Group className="mb-3" controlId="formGroupCollege">
               <Form.Label style={{ fontWeight: "500" }}>Select College</Form.Label>
@@ -156,18 +137,6 @@ function UploadForm() {
               </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formGroupBranch">
-              <Form.Label style={{ fontWeight: "500" }}>Branch</Form.Label>
-              <Form.Control
-                type="text"
-                name="branch"
-                placeholder="Branch"
-                value={formData.branch}
-                onChange={handleInputChange}
-                required
-                style={{ borderRadius: "10px", padding: "12px" }}
-              />
-            </Form.Group>
 
             <Form.Group className="mb-3" controlId="formGroupCode">
               <Form.Label style={{ fontWeight: "500" }}>
