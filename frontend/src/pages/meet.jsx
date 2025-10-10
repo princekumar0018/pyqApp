@@ -38,28 +38,7 @@ const ParticipantView = ({ participantId }) => {
 // ========================
 // 🎮 Meeting Controls
 // ========================
-const Controls = ({ onLeave }) => {
-	const { leave, toggleMic, toggleWebcam } = useMeeting();
-	return (
-		<div className="flex gap-3 mt-4">
-			<button onClick={toggleMic} className="bg-gray-700 px-3 py-2 rounded">
-				Toggle Mic
-			</button>
-			<button onClick={toggleWebcam} className="bg-gray-700 px-3 py-2 rounded">
-				Toggle Camera
-			</button>
-			<button
-				onClick={() => {
-					leave();
-					onLeave();
-				}}
-				className="bg-red-700 px-3 py-2 rounded"
-			>
-				Leave
-			</button>
-		</div>
-	);
-};
+
 
 // ========================
 // 🧑 Meeting View

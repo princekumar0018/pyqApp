@@ -18,7 +18,7 @@ initializeGridFSBucket();
 const uploadFile = async (req, res) => {
     try {
         const file = req.file;
-        const { college, year, branch, email, subjectcode } = req.body;
+        const { college, year, subjectcode } = req.body;
 
         if (!file || !college ) {
             return res.status(400).send('Fill all required details.');
@@ -32,8 +32,6 @@ const uploadFile = async (req, res) => {
             metadata: {
                 college,
                 year,
-                branch,
-                email,
                 subjectcode,
                 verified: 0
             }

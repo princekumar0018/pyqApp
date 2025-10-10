@@ -107,9 +107,6 @@ function CardForDetails() {
                       Subject Code: {file.metadata.subjectcode || "Unknown"}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      Branch: {file.metadata.branch || "Unknown"}
-                    </ListGroup.Item>
-                    <ListGroup.Item>
                       Upload Date:{" "}
                       {new Date(file.uploadDate).toLocaleString() || "Unknown"}
                     </ListGroup.Item>
