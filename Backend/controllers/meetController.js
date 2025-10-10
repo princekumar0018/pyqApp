@@ -1,63 +1,39 @@
-const UserModel = require('../models/userModel')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const SUPER_ADMIN = process.env.SUPER_ADMIN;
+const UserModel = require('../models/userModel');
+const { callGeminiAPIAudio } = require('../utils/CallGemniApiAudio');
+const { callGeminiAPI } = require('../utils/CallGemniApiPrompt');
 require('dotenv').config();
+const fs = require("fs");
+const path = require("path");
 
-const register = async (req, res) => {
-    try {
-        const { college, password, email } = req.body;
-        if (!college || !password || !email) {
-            return res.send({
-                success: false,
-                status: 400,
-                message: "Enter All Fields"
-            })
+
+const liveSummary = async (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No audio file uploaded" });
+    }
+
+    const filePath = req.file.path;
+    const mimeType = req.file.mimetype || "audio/webm";
+
+    const fileBuffer = fs.readFileSync(filePath);
+
+    const audioBase64 = fileBuffer.toString("base64");
+
+    const result = await callGeminiAPIAudio(audioBase64, mimeType);
+    console.log(result)
+
+    res.status(200).json({
+        message: "Audio processed and deleted successfully",
+        result: result
+    });
+
+    if (filePath && fs.existsSync(filePath)) {
+        try {
+            fs.unlinkSync(filePath);
+            console.log("🗑️ Temporary file deleted:", filePath);
+        } catch (err) {
+            console.error("⚠️ Failed to delete temp file:", err);
         }
-        console.log(college)
-
-        const isValidEmail = await UserModel.findOne({ email: email,verified:true });
-        if (isValidEmail) {
-            return res.send({
-                success: false,
-                status: 401,
-                message: "Already Registered Try Logging in"
-            })
-        }
-        const isValidName = await UserModel.findOne({ name: college });
-        if (isValidName) {
-            return res.send({
-                success: false,
-                status: 401,
-                message: "Name already taken"
-            })
-        }
-        console.log(isValidEmail)
-
-        const hashPassword = await bcrypt.hash(password, 10);
-        const user = new UserModel({
-            name: college,
-            password: hashPassword,
-            email: email,
-        })
-        await user.save()
-        const token = jwt.sign(
-            { id: user._id, email: user.email },
-            process.env.SECRET_KEY,
-            { expiresIn: "2d" }
-        );
-
-        return res.send({
-            success: true,
-            status: 200,
-            message: "User Registered Successfully wait for the admin to verify or contact at " + process.env.CONTACT,
-            token: token,
-        })
-    } catch (error) {
-        console.log(error)
     }
 }
 
-
-
-module.exports = { register, login };
+module.exports = { liveSummary };

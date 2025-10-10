@@ -12,29 +12,29 @@ async function callGeminiAPI(prompt) {
     }
 
     const response = await fetch(GEMINI_API_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": GEMINI_API_KEY,
-        },
-        body: JSON.stringify({
-            // 🧠 Set system-level behavior here
-            system_instruction: {
-                parts: [
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-goog-api-key": GEMINI_API_KEY,
+            },
+            body: JSON.stringify({
+                // 🧠 Set system-level behavior here
+                system_instruction: {
+                    parts: [
+                        {
+                            text:
+                                "You are a helpful teaching assistant that compares model answers with student answers and provides constructive, structured feedback.",
+                        },
+                    ],
+                },
+                contents: [
                     {
-                        text:
-                            "You are a helpful teaching assistant that compares model answers with student answers and provides constructive, structured feedback.",
+                        role: "user",
+                        parts: [{ text: prompt }],
                     },
                 ],
-            },
-            contents: [
-                {
-                    role: "user",
-                    parts: [{ text: prompt }],
-                },
-            ],
-        }),
-    });
+            }),
+        });
 
 
     if (!response.ok) {

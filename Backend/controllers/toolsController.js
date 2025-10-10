@@ -1,5 +1,5 @@
 const UserModel = require("../models/userModel");
-const { callGeminiAPI } = require("../utils/CallGemniApi");
+const { callGeminiAPI } = require("../utils/CallGemniApiPrompt");
 const { extractText } = require("../utils/extractText");
 const JSON5 = require("json5");
 
@@ -101,33 +101,7 @@ Return JSON:
 
         }
 
-        // ✅ Return parsed data safely
         return res.json({ result: parsedSummary });
-
-        // const result = await callGeminiAPI(prompt);
-
-        // let cleanText = result.replace(/```json|```/g, "").trim();
-
-        // // Try to extract only the JSON part
-        // const jsonMatch = cleanText.match(/\{[\s\S]*\}/); // anything between the first and last curly brace
-        // let parsedSummary;
-
-        // try {
-        //     if (jsonMatch) {
-        //         parsedSummary = JSON.parse(jsonMatch[0]);
-        //     } else {
-        //         throw new Error("No valid JSON found in response");
-        //     }
-        // } catch (error) {
-        //     console.error("❌ JSON parsing failed:", error.message);
-        //     return res.status(500).json({
-        //         error: "Invalid JSON format from model",
-        //         rawResponse: cleanText,
-        //     });
-        // }
-
-        // return res.json({ result: parsedSummary });
-
     } catch (error) {
         console.error("❌ evaluatePaper error:", error);
         return res.status(500).json({ error: "Failed to evaluate paper" });
