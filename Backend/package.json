@@ -22,7 +22,7 @@
     "nodemon": "^3.1.10",
     "path": "^0.12.7",
     "pdf-parse": "^1.1.1",
-    "pdf-poppler": "^0.2.3",
+    "pdfjs-dist": "^5.4.296",
     "socket.io": "^4.8.1",
     "tesseract.js": "^6.0.1"
   },
