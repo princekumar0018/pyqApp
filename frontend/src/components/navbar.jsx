@@ -20,12 +20,11 @@ const NAV = () => {
         {/* Left Spacer (keeps brand centered) */}
         <div style={{ width: "120px" }}></div>
 
-        {/* Centered Brand */}
         <Navbar.Brand
           className="text-white fw-bold fs-4 text-center mx-auto"
           style={{ fontFamily: "'Poppins', sans-serif" }}
         >
-          Previous Year Paper App
+          Virtual Classroom
         </Navbar.Brand>
 
         {/* Right Buttons */}
@@ -47,7 +46,7 @@ const NAV = () => {
               (e.target.style.color = "white")
             )}
           >
-            Admin Login
+            Teacher Login
           </Button>
 
           <Button
@@ -66,7 +65,7 @@ const NAV = () => {
               (e.target.style.color = "white")
             )}
           >
-            Admin Register
+            Teacher Register
           </Button>
         </div>
       </Container>

@@ -14,6 +14,10 @@ const Home = () => {
     navigate("/upload");
   }
 
+  function handleMeet() {
+    navigate("/meet");
+  }
+
   return (
     <>
       <NAV />
@@ -46,7 +50,7 @@ const Home = () => {
                 fontWeight: "500",
               }}
             >
-              📘 Previous Year Paper
+              📘 Download Homework
             </Button>
             <Button
               onClick={handleUploadPaper}
@@ -58,7 +62,19 @@ const Home = () => {
                 fontWeight: "500",
               }}
             >
-              ⬆️ Upload New Paper
+              ⬆️ Upload Homework
+            </Button>
+            <Button
+              onClick={handleMeet}
+              variant="dark"
+              size="lg"
+              style={{
+                borderRadius: "10px",
+                padding: "12px",
+                fontWeight: "500",
+              }}
+            >
+              Ⓜ️ Class Meet
             </Button>
           </div>
         </Card>

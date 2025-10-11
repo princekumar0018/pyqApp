@@ -43,7 +43,6 @@ const AdminContent = ({ handleContent }) => {
           <h2 className="mb-4" style={{ fontWeight: "600", color: "#0d6efd" }}>
             Admin Panel
           </h2>
-          <p className="mb-4 text-muted">Manage content below</p>
 
           <div className="d-grid gap-3">
             <Button
