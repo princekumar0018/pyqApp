@@ -44,7 +44,7 @@ const Previous = () => {
         }
       } catch (err) {
         console.error("Error fetching colleges:", err);
-        setError("⚠️ Could not load colleges. Please try again later.");
+        setError("⚠️ Could not load Teachers List. Please try again later.");
       }
     }
     fetchColleges();
@@ -132,7 +132,7 @@ const Previous = () => {
           <h1 className="mb-4 text-center">📘 Previous Year Paper</h1>
           <Form>
             <Form.Group controlId="subjectCode" className="mb-3">
-              <Form.Label>Subject Code / File Name</Form.Label>
+              <Form.Label>Homework Code</Form.Label>
               <Form.Control
                 type="text"
                 value={subjectCode}
@@ -143,13 +143,13 @@ const Previous = () => {
             </Form.Group>
 
             <Form.Group controlId="college" className="mb-3">
-              <Form.Label>Select College</Form.Label>
+              <Form.Label>Select Teacher</Form.Label>
               <Form.Select
                 value={college}
                 onChange={(e) => setCollege(e.target.value)}
                 required
               >
-                <option value="">-- Select College --</option>
+                <option value="">-- Select Teacher --</option>
                 {colleges.map((clg, index) => (
                   <option key={index} value={clg}>
                     {clg}
@@ -158,7 +158,7 @@ const Previous = () => {
               </Form.Select>
             </Form.Group>
 
-            <Row>
+            {/* <Row>
               <Col>
                 <Form.Group controlId="year" className="mb-3">
                   <Form.Label>Year</Form.Label>
@@ -185,7 +185,7 @@ const Previous = () => {
                   </Form.Select>
                 </Form.Group>
               </Col>
-            </Row>
+            </Row> */}
 
             <Row className="mt-4">
               <Col>

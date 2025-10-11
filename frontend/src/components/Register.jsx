@@ -44,7 +44,7 @@ const Register = ({ handleRegister }) => {
 
 						{/* ✅ New College Field */}
 						<Form.Group controlId="formCollege" className="mt-3">
-							<Form.Label>College Name</Form.Label>
+							<Form.Label>Teacher Name</Form.Label>
 							<Form.Control
 								type="text"
 								placeholder="Enter College Name"

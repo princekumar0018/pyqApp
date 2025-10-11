@@ -82,7 +82,7 @@ const AdminDownloadPage = () => {
             type="text"
             value={filename}
             onChange={(e) => setFilename(e.target.value)}
-            placeholder="Enter filename (e.g. result2025.pdf)"
+            placeholder="Enter filename (e.g. RahulHomework_PK007.pdf)"
             required
           />
         </Form.Group>

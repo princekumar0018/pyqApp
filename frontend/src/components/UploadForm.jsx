@@ -32,7 +32,7 @@ function UploadForm() {
         }
       } catch (err) {
         console.error("Error fetching colleges:", err);
-        setError("⚠️ Could not load colleges. Please try again later.");
+        setError("⚠️ Could not load Teachers. Please try again later.");
       }
     }
     fetchColleges();
@@ -98,12 +98,11 @@ function UploadForm() {
             className="text-center mb-4"
             style={{ fontWeight: "600", color: "#0d6efd" }}
           >
-            Student File Upload
+            Homework Upload
           </h2>
           <Form onSubmit={handleUpload}>
-            {/* College Dropdown */}
             <Form.Group className="mb-3" controlId="formGroupCollege">
-              <Form.Label style={{ fontWeight: "500" }}>Select College</Form.Label>
+              <Form.Label style={{ fontWeight: "500" }}>Select Teacher</Form.Label>
               <Form.Select
                 name="college"
                 value={formData.college}
@@ -111,7 +110,7 @@ function UploadForm() {
                 required
                 style={{ borderRadius: "10px", padding: "12px" }}
               >
-                <option value="">-- Select College --</option>
+                <option value="">-- Select Teacher --</option>
                 {colleges.map((clg, index) => (
                   <option key={index} value={clg}>
                     {clg}
@@ -120,7 +119,7 @@ function UploadForm() {
               </Form.Select>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formGroupYear">
+            {/* <Form.Group className="mb-3" controlId="formGroupYear">
               <Form.Label style={{ fontWeight: "500" }}>Select Year</Form.Label>
               <Form.Select
                 name="year"
@@ -135,12 +134,12 @@ function UploadForm() {
                 <option value="2024">2024</option>
                 <option value="2025">2025</option>
               </Form.Select>
-            </Form.Group>
+            </Form.Group> */}
 
 
             <Form.Group className="mb-3" controlId="formGroupCode">
               <Form.Label style={{ fontWeight: "500" }}>
-                Subject Code
+                Homework Code
               </Form.Label>
               <Form.Control
                 type="text"
@@ -153,7 +152,7 @@ function UploadForm() {
             </Form.Group>
 
             {/* ✅ Exam Type Dropdown */}
-            <Form.Group className="mb-3" controlId="formGroupExamType">
+            {/* <Form.Group className="mb-3" controlId="formGroupExamType">
               <Form.Label style={{ fontWeight: "500" }}>Exam Type</Form.Label>
               <Form.Select
                 name="examType"
@@ -166,7 +165,7 @@ function UploadForm() {
                 <option value="2">Mid Semester</option>
                 <option value="1">End Semester</option>
               </Form.Select>
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group className="mb-3" controlId="formGroupFile">
               <Form.Label style={{ fontWeight: "500" }}>Select File</Form.Label>

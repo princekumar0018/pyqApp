@@ -54,7 +54,7 @@ const AdminContent = ({ handleContent }) => {
                 fontWeight: "500",
               }}
             >
-              📥 Download Paper
+              📥 Student Homework
             </Button>
 
             <Button
@@ -67,7 +67,7 @@ const AdminContent = ({ handleContent }) => {
                 fontWeight: "500",
               }}
             >
-              ⬆️ Upload Paper
+              ⬆️ Upload Homework
             </Button>
 
             <Button
@@ -81,12 +81,12 @@ const AdminContent = ({ handleContent }) => {
                 color: "white",
               }}
             >
-              🧠 Check Paper
+              🧠 Check Homework(AI)
             </Button>
 
             <Button
               onClick={handleMeet}
-              variant="info"
+              variant="dark"
               size="lg"
               style={{
                 borderRadius: "10px",
@@ -95,7 +95,7 @@ const AdminContent = ({ handleContent }) => {
                 color: "white",
               }}
             >
-              Ⓜ️ Meet
+              Ⓜ️ Take Class
             </Button>
 
           </div>

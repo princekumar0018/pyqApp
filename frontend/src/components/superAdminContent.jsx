@@ -50,7 +50,7 @@ const SuperAdminContent = () => {
     return (
       <div className="d-flex justify-content-center align-items-center mt-5">
         <Spinner animation="border" variant="primary" size="sm" />
-        <span className="ms-2 text-muted">Loading Colleges...</span>
+        <span className="ms-2 text-muted">Loading Teachers...</span>
       </div>
     );
 
@@ -94,9 +94,9 @@ const SuperAdminContent = () => {
     <div className="p-4">
       {/* ✅ Verified Colleges */}
       <section className="mb-4">
-        <h2 className="fw-bold text-success mb-2"> Verified Colleges</h2>
+        <h2 className="fw-bold text-success mb-2"> Verified Teachers</h2>
         {verified.length === 0 ? (
-          <p className="text-muted small">No verified colleges.</p>
+          <p className="text-muted small">No verified Teachers.</p>
         ) : (
           <div
             className="d-flex flex-row overflow-auto pb-2"
