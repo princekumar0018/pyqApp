@@ -15,7 +15,7 @@ const connectToDatabase = require('./config/bdUser');
 const { toolsRouter } = require('./routes/Tools.route');
 const { meetRouter } = require('./routes/Meet.routes');
 connectToDatabase();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 10000;
 
 
 app.use(cors('*'));
