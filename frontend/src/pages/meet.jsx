@@ -7,7 +7,7 @@ import {
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import MeetingView from "../components/MeetingView";
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 
 // ========================

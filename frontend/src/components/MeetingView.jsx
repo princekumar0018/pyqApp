@@ -10,6 +10,7 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 	const [isSummarizing, setIsSummarizing] = useState(false);
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [isRecording, setIsRecording] = useState(false);
+	const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 	const mediaRecorderRef = useRef(null);
 	const intervalRef = useRef(null);
@@ -50,7 +51,7 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 					setIsSummarizing(true);
 
 					const res = await axios.post(
-						"http://localhost:5000/meet/live-summary",
+						BACKEND_URL+"/meet/live-summary",
 						formData,
 						{
 							headers: { "Content-Type": "multipart/form-data" },
@@ -328,12 +329,12 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 										participants.size === 1
 											? "1fr"
 											: participants.size === 2
-											? "repeat(2, 1fr)"
-											: participants.size <= 4
-											? "repeat(2, 1fr)"
-											: participants.size <= 6
-											? "repeat(3, 1fr)"
-											: "repeat(auto-fill, minmax(300px, 1fr))",
+												? "repeat(2, 1fr)"
+												: participants.size <= 4
+													? "repeat(2, 1fr)"
+													: participants.size <= 6
+														? "repeat(3, 1fr)"
+														: "repeat(auto-fill, minmax(300px, 1fr))",
 								}}
 							>
 								{[...participants.keys()].map((participantId) => (
