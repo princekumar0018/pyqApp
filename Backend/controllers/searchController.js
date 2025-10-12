@@ -30,7 +30,7 @@ const searchFiles = async (req, res) => {
   try {
     const { college, filename, year, examType } = req.body;
 
-    if (!filename || !year || !examType || !college) {
+    if (!filename || !college) {
       return res.status(400).json({
         error: "Filename, year, examType, and college are required fields.",
       });
@@ -60,9 +60,9 @@ const searchFiles = async (req, res) => {
       const metadata = file.metadata || {};
       return (
         file.filename?.trim() === filename.trim() &&
-        metadata.college?.trim?.()?.toLowerCase() === college.trim().toLowerCase() &&
-        metadata.year?.toString() === year.toString() &&
-        metadata.examType?.toString() === examType.toString()
+        metadata.college?.trim?.()?.toLowerCase() === college.trim().toLowerCase()
+        // && metadata.year?.toString() === year.toString() &&
+        // metadata.examType?.toString() === examType.toString()
       );
     });
 

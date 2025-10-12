@@ -115,9 +115,9 @@ const SuperAdminContent = () => {
 
       {/* ❌ Unverified Colleges */}
       <section>
-        <h2 className="fw-semibold text-danger mb-2"> Unverified Colleges</h2>
+        <h2 className="fw-semibold text-danger mb-2"> Unverified Teachers</h2>
         {unverified.length === 0 ? (
-          <p className="text-muted small">No unverified colleges.</p>
+          <p className="text-muted small">No unverified Teachers.</p>
         ) : (
           <div
             className="d-flex flex-row overflow-auto pb-2"

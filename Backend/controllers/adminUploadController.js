@@ -50,14 +50,14 @@ initializeGridFSBucket();
 const uploadFile = async (req, res) => {
   try {
     const file = req.file;
-    const { filename, year, examType } = req.body;
+    const { filename } = req.body;
 
     // Validate inputs
     if (!file) {
       return res.status(400).json({ error: "No file uploaded." });
     }
 
-    if (!filename || !year || !examType) {
+    if (!filename ) {
       return res.status(400).json({ error: "Filename, year, and examType are required." });
     }
 
@@ -68,8 +68,8 @@ const uploadFile = async (req, res) => {
     // Create upload stream with metadata
     const uploadStream = gridFSBucket.openUploadStream(filename.toUpperCase(), {
       metadata: {
-        year: parseInt(year, 10),
-        examType: parseInt(examType, 10),
+        // year: parseInt(year, 10),
+        // examType: parseInt(examType, 10),
         college: req.user?.college || "Unknown",
         // uploadedBy: req.user?.email || "Admin",
         uploadedAt: new Date(),

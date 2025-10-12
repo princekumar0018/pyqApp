@@ -7,7 +7,7 @@ import "../App.css";
 import toast from 'react-hot-toast';
 
 const Login = ({ handleLogin }) => {
-  const [email, setEmail] = useState("dtu@dtu.com");
+  const [email, setEmail] = useState("virtualteaching@gmail.com");
   const [password, setPassword] = useState("123456");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
