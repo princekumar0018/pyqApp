@@ -134,7 +134,7 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 		<div
 			style={{
 				position: "relative",
-				background: "#111",
+				background: "#000",
 				color: "#fff",
 				minHeight: "100vh",
 				overflow: "hidden",
@@ -248,37 +248,16 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 				</div>
 			</div>
 
-			{/* 🎥 Floating open button */}
-			{!isSidebarOpen && (
-				<button
-					onClick={() => setIsSidebarOpen(true)}
-					style={{
-						position: "fixed",
-						right: "20px",
-						top: "20px",
-						backgroundColor: "#00bfff",
-						color: "#fff",
-						border: "none",
-						padding: "12px 18px",
-						borderRadius: "8px",
-						cursor: "pointer",
-						fontWeight: "600",
-						boxShadow: "0 4px 12px rgba(0,0,0,0.4)",
-						zIndex: 999,
-					}}
-				>
-					🧠 AI Summarizer
-				</button>
-			)}
+
 
 			{/* 🎥 Main Meeting Content */}
-			<div style={{ padding: "20px" }}>
-				<h2 style={{ textAlign: "center" }}>Meeting ID: {meetingId}</h2>
+			<div style={{ padding: "12px", display: "flex", flexDirection: "column", minHeight: "100vh", boxSizing: "border-box" }}>
+				<h2 style={{ textAlign: "center", color: "#f2f4f8", margin: 0 }}>Meeting ID: {meetingId}</h2>
 
 				{joined === "JOINED" ? (
-					<div style={{ textAlign: "center", marginTop: "20px" }}>
+					<div style={{ textAlign: "center", marginTop: "12px", display: "flex", flexDirection: "column", flex: 1, minHeight: 0 }}>
 						{/* Meeting Controls */}
-						<div style={{ marginTop: "10px" }}>
+						<div style={{ marginTop: "8px", display: "flex", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
 							{focusedParticipantId ? (
 								<button
 									onClick={() => publish(null)}
@@ -308,33 +287,58 @@ function MeetingView({ meetingId, onMeetingLeave }) {
 									Enable Focus Mode
 								</button>
 							)}
+
+							{!isSidebarOpen && (
+								<button
+									onClick={() => setIsSidebarOpen(true)}
+									style={{
+										backgroundColor: "#00bfff",
+										color: "#fff",
+										padding: "8px 16px",
+										borderRadius: "6px",
+										border: "none",
+										cursor: "pointer",
+										fontWeight: 600,
+									}}
+								>
+									🧠 AI Summarizer
+								</button>
+							)}
 						</div>
 
 						<Controls />
 
 						{/* Participants */}
 						{focusedParticipantId ? (
-							<div style={{ textAlign: "center", marginTop: "30px" }}>
-								<ParticipantView participantId={focusedParticipantId} />
+							<div style={{ display: "flex", justifyContent: "center", alignItems: "center", flex: 1, minHeight: 0, paddingTop: 8 }}>
+								<div style={{ width: "min(94vw, calc((100vh - 240px) * 16 / 9))" }}>
+									<ParticipantView participantId={focusedParticipantId} />
+								</div>
+							</div>
+						) : participants.size === 1 ? (
+							<div style={{ display: "flex", justifyContent: "center", alignItems: "center", flex: 1, minHeight: 0, paddingTop: 8 }}>
+								<div style={{ width: "min(94vw, calc((100vh - 240px) * 16 / 9))" }}>
+									<ParticipantView participantId={[...participants.keys()][0]} />
+								</div>
 							</div>
 						) : (
 							<div
 								style={{
 									display: "grid",
-									gap: "20px",
+									gap: "16px",
 									justifyContent: "center",
 									alignItems: "center",
-									marginTop: "30px",
+									marginTop: "16px",
+									flex: 1,
+									minHeight: 0,
 									gridTemplateColumns:
-										participants.size === 1
-											? "1fr"
-											: participants.size === 2
+										participants.size === 2
+											? "repeat(2, 1fr)"
+											: participants.size <= 4
 												? "repeat(2, 1fr)"
-												: participants.size <= 4
-													? "repeat(2, 1fr)"
-													: participants.size <= 6
-														? "repeat(3, 1fr)"
-														: "repeat(auto-fill, minmax(300px, 1fr))",
+												: participants.size <= 6
+													? "repeat(3, 1fr)"
+													: "repeat(auto-fill, minmax(300px, 1fr))",
 								}}
 							>
 								{[...participants.keys()].map((participantId) => (

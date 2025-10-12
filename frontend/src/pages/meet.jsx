@@ -103,6 +103,12 @@ const Meet = () => {
 	const [token, setToken] = useState("");
 	const [participantName, setParticipantName] = useState("");
 
+	// Make entire page black while on the Meet route
+	useEffect(() => {
+		document.body.classList.add("meet-page");
+		return () => document.body.classList.remove("meet-page");
+	}, []);
+
 	// 1️⃣ Create or join a meeting
 	const getMeetingAndToken = async (id, name) => {
 		try {

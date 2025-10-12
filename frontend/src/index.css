@@ -45,6 +45,15 @@ p { color: var(--color-text-muted); }
   min-height: 100vh;
 }
 
+/* Force full-black background on meeting pages */
+body.meet-page {
+  background: #000000 !important;
+}
+body.meet-page #App {
+  background: #000000 !important;
+  animation: none !important;
+}
+
 .elevated-card {
   background: var(--color-surface);
   border: none;
@@ -53,7 +62,7 @@ p { color: var(--color-text-muted); }
 }
 
 
-/* Themed buttons with golden hover/active states */
+/* Themed buttons baseline transitions */
 .btn-primary-edu,
 .btn-success-edu,
 .btn-accent-edu,
@@ -69,14 +78,14 @@ p { color: var(--color-text-muted); }
 }
 .btn-dark-edu:hover,
 .btn-dark-edu:focus {
-  background: #000000;
-  border-color: #000000;
+  background: #1b1b1b; /* slightly lighter (faded) */
+  border-color: #1b1b1b;
   color: #ffffff;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
 .btn-dark-edu:active {
-  background: #1b1b1b;
-  border-color: #1b1b1b;
+  background: #000000; /* pressed slightly darker */
+  border-color: #000000;
   color: #ffffff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
@@ -118,30 +127,47 @@ p { color: var(--color-text-muted); }
   color: #1f2937;
 }
 
-/* Unified golden hover/focus for all themed buttons */
+/* Lighter (faded) hover/focus for themed buttons (excludes Teacher outline buttons) */
 .btn-primary-edu:hover,
-.btn-primary-edu:focus,
-.btn-success-edu:hover,
-.btn-success-edu:focus,
-.btn-accent-edu:hover,
-.btn-accent-edu:focus,
-.btn-outline-edu:hover,
-.btn-outline-edu:focus {
-  background: var(--color-accent) !important;
-  border-color: var(--color-accent) !important;
-  color: #1f2937 !important;
-  box-shadow: 0 4px 10px rgba(249,168,37,0.25);
+.btn-primary-edu:focus {
+  background: #42a5f5; /* lighter primary */
+  border-color: #42a5f5;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(30,136,229,0.25);
+}
+.btn-primary-edu:active {
+  background: #1565c0; /* pressed darker */
+  border-color: #1565c0;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(21,101,192,0.2);
 }
 
-/* Active/pressed state */
-.btn-primary-edu:active,
-.btn-success-edu:active,
-.btn-accent-edu:active,
-.btn-outline-edu:active {
-  background: #e09f14 !important; /* slightly darker gold */
-  border-color: #e09f14 !important;
-  color: #1f2937 !important;
-  box-shadow: 0 2px 6px rgba(249,168,37,0.2);
+.btn-success-edu:hover,
+.btn-success-edu:focus {
+  background: #66bb6a; /* lighter green */
+  border-color: #66bb6a;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(76,175,80,0.25);
+}
+.btn-success-edu:active {
+  background: #43a047; /* pressed darker green */
+  border-color: #43a047;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(67,160,71,0.2);
+}
+
+.btn-accent-edu:hover,
+.btn-accent-edu:focus {
+  background: #fdd835; /* lighter amber */
+  border-color: #fdd835;
+  color: #1f2937;
+  box-shadow: 0 4px 10px rgba(249,216,53,0.25);
+}
+.btn-accent-edu:active {
+  background: #fbc02d; /* pressed slightly darker amber */
+  border-color: #fbc02d;
+  color: #1f2937;
+  box-shadow: 0 2px 6px rgba(251,192,45,0.2);
 }
 
 .hero-wrap {
@@ -188,29 +214,7 @@ p { color: var(--color-text-muted); }
   color: var(--color-text);
 }
 
-/* Home page: force black hover/active for the primary actions */
-.home-actions .btn-primary-edu:hover,
-.home-actions .btn-primary-edu:active,
-.home-actions .btn-success-edu:hover,
-.home-actions .btn-success-edu:active,
-.home-actions .btn-accent-edu:hover,
-.home-actions .btn-accent-edu:active {
-  background: #B0CE88 !important;
-  border-color: #fff !important;
-  color: #fff !important;
-}
-
-/* Admin Panel: mirror Home page hover/active behavior */
-.admin-actions .btn-primary-edu:hover,
-.admin-actions .btn-primary-edu:active,
-.admin-actions .btn-success-edu:hover,
-.admin-actions .btn-success-edu:active,
-.admin-actions .btn-accent-edu:hover,
-.admin-actions .btn-accent-edu:active {
-  background: #B0CE88 !important;
-  border-color: #fff !important;
-  color: #fff !important;
-}
+/* Removed page-scoped overrides to unify hover behavior across the app */
 
 /* Existing PDF view styles (kept) */
 .pdf-div{
