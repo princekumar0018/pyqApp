@@ -35,10 +35,10 @@ const Register = ({ handleRegister }) => {
 	};
 
 	return (
-		<div className="d-flex align-items-center justify-content-center">
-			<Card style={{ width: "400px", padding: "20px" }}>
+			<div className="d-flex align-items-center justify-content-center" style={{ minHeight: "80vh" }}>
+				<Card className="elevated-card" style={{ width: "420px", padding: "24px" }}>
 				<Card.Body>
-					<h2 className="text-center mb-4">Admin Register</h2>
+						<h2 className="text-center mb-4 brand-gradient">Admin Register</h2>
 					{error && <p className="text-danger text-center">{error}</p>}
 					<Form onSubmit={handleSubmit}>
 
@@ -76,12 +76,7 @@ const Register = ({ handleRegister }) => {
 							/>
 						</Form.Group>
 
-						<Button
-							variant="primary"
-							className="w-100 mt-4"
-							type="submit"
-							disabled={loading}
-						>
+						<Button className="w-100 mt-4 btn-primary-edu" type="submit" disabled={loading}>
 							{loading ? (
 								<Spinner
 									as="span"

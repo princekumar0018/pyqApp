@@ -25,79 +25,26 @@ const AdminContent = ({ handleContent }) => {
   return (
     <>
       <NAV />
-      <Container
-        fluid
-        className="d-flex justify-content-center align-items-center"
-        style={{ minHeight: "90vh" }}
-      >
-        <Card
-          style={{
-            width: "420px",
-            padding: "30px",
-            borderRadius: "15px",
-            border: "none",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
-            textAlign: "center",
-          }}
-        >
-          <h2 className="mb-4" style={{ fontWeight: "600", color: "#0d6efd" }}>
-            Admin Panel
-          </h2>
+      <Container fluid className="hero-wrap">
+        <Card className="elevated-card p-4 text-center" style={{ width: "520px" }}>
+          <h2 className="mb-3 fw-semibold brand-gradient">Admin Panel</h2>
 
-          <div className="d-grid gap-3">
-            <Button
-              onClick={handleDownload}
-              size="lg"
-              style={{
-                borderRadius: "10px",
-                padding: "12px",
-                fontWeight: "500",
-              }}
-            >
+          <div className="admin-actions d-grid gap-3">
+            <Button onClick={handleDownload} size="lg" className="btn-primary-edu" style={{ borderRadius: "10px", padding: "12px" }}>
               📥 Student Homework
             </Button>
 
-            <Button
-              onClick={handleUpload}
-              variant="success"
-              size="lg"
-              style={{
-                borderRadius: "10px",
-                padding: "12px",
-                fontWeight: "500",
-              }}
-            >
+            <Button onClick={handleUpload} size="lg" className="btn-success-edu" style={{ borderRadius: "10px", padding: "12px" }}>
               ⬆️ Upload Homework
             </Button>
 
-            <Button
-              onClick={handleEvaluate}
-              variant="info"
-              size="lg"
-              style={{
-                borderRadius: "10px",
-                padding: "12px",
-                fontWeight: "500",
-                color: "white",
-              }}
-            >
-              🧠 Check Homework(AI)
+            <Button onClick={handleEvaluate} size="lg" className="btn-accent-edu" style={{ borderRadius: "10px", padding: "12px" }}>
+              🧠 Check Homework (AI)
             </Button>
 
-            <Button
-              onClick={handleMeet}
-              variant="dark"
-              size="lg"
-              style={{
-                borderRadius: "10px",
-                padding: "12px",
-                fontWeight: "500",
-                color: "white",
-              }}
-            >
+            <Button onClick={handleMeet} size="lg" className="btn-dark-edu" style={{ borderRadius: "10px", padding: "12px" }}>
               Ⓜ️ Take Class
             </Button>
-
           </div>
         </Card>
       </Container>

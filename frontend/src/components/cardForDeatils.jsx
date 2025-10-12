@@ -6,6 +6,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
 import { FaCopy, FaCheck } from "react-icons/fa"; // Import FaCopy and FaCheck icons
+import toast from 'react-hot-toast';
 
 function CardForDetails() {
   const [details, setDetails] = useState([]); // Initialize as an empty array
@@ -51,7 +52,7 @@ function CardForDetails() {
       })
       .catch((err) => {
         console.error("Failed to copy:", err);
-        alert("Failed to copy filename.");
+  toast.error("Failed to copy filename.");
       });
   };
 
@@ -104,7 +105,7 @@ function CardForDetails() {
                       Year: {file.metadata.year || "Unknown"}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      Subject Code: {file.metadata.subjectcode || "Unknown"}
+                      Homework Code: {file.metadata.subjectcode || "Unknown"}
                     </ListGroup.Item>
                     <ListGroup.Item>
                       Upload Date:{" "}

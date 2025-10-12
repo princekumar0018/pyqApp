@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Alert, Button, Form, Spinner } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
+import toast from 'react-hot-toast';
 import CardForDetails from "./cardForDeatils";
 import Cookies from "js-cookie";
 
@@ -55,16 +56,24 @@ const AdminDownloadPage = () => {
 
         URL.revokeObjectURL(url);
       } else {
-        setError("PDF file not found on the server.");
+        const msg = "PDF file not found on the server.";
+        setError(msg);
+        toast.error(msg);
       }
     } catch (error) {
       console.error("❌ Error occurred while downloading:", error);
       if (error.response && error.response.status === 404) {
-        setError("File not found on the server.");
+        const msg = "File not found on the server.";
+        setError(msg);
+        toast.error(msg);
       } else if (error.response && error.response.status === 401) {
-        setError("Unauthorized access. Please log in again.");
+        const msg = "Unauthorized access. Please log in again.";
+        setError(msg);
+        toast.error(msg);
       } else {
-        setError("An unexpected error occurred. Please try again later.");
+        const msg = "An unexpected error occurred. Please try again later.";
+        setError(msg);
+        toast.error(msg);
       }
     } finally {
       setLoading(false);
@@ -73,7 +82,7 @@ const AdminDownloadPage = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="mb-4 text-primary fw-semibold">Admin Download Page</h1>
+      <h1 className="mb-4 fw-semibold brand-gradient">Admin Download Page</h1>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="filename" className="mb-3">
@@ -87,7 +96,7 @@ const AdminDownloadPage = () => {
           />
         </Form.Group>
 
-        <Button type="submit" variant="primary" disabled={loading}>
+        <Button type="submit" className="btn-primary-edu" disabled={loading}>
           {loading ? (
             <>
               <Spinner
@@ -106,11 +115,7 @@ const AdminDownloadPage = () => {
         </Button>
       </Form>
 
-      {error && (
-        <Alert variant="danger" className="mt-3 text-center">
-          {error}
-        </Alert>
-      )}
+      {/* Errors are shown via toast notifications */}
 
       <hr className="my-5" />
 

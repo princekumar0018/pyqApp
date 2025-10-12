@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Spinner, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";   // ✅ import
 import "../App.css";
+import toast from 'react-hot-toast';
 
 const Login = ({ handleLogin }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("dtu@dtu.com");
+  const [password, setPassword] = useState("123456");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
+  // Auto-show a toast for judges/demos when opening this page
+  useEffect(() => {
+    toast.success("Demo credentials are pre-filled click Login to enter.");
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,10 +51,10 @@ const Login = ({ handleLogin }) => {
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center">
-      <Card style={{ width: "400px", padding: "20px" }}>
+    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: "80vh" }}>
+      <Card className="elevated-card" style={{ width: "420px", padding: "24px" }}>
         <Card.Body>
-          <h2 className="text-center mb-4">Admin Login</h2>
+          <h2 className="text-center mb-4 brand-gradient">Teacher Login</h2>
           {error && <p className="text-danger text-center">{error}</p>}
           <Form>
             <Form.Group controlId="formBasicEmail">
@@ -73,12 +79,7 @@ const Login = ({ handleLogin }) => {
               />
             </Form.Group>
 
-            <Button
-              variant="primary"
-              className="w-100 mt-4"
-              onClick={handleSubmit}
-              disabled={loading}
-            >
+            <Button className="w-100 mt-4 btn-primary-edu" onClick={handleSubmit} disabled={loading}>
               {loading ? (
                 <Spinner
                   as="span"

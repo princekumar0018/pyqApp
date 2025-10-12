@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import toast from 'react-hot-toast';
 import {
 	MeetingProvider,
 	useMeeting,
@@ -51,7 +52,7 @@ function JoinScreen({ getMeetingAndToken }) {
 	// When user clicks "Join" or "Create"
 	const handleJoin = async () => {
 		if (!meetingId) {
-			alert("Please enter a meeting ID or create one.");
+			toast.error("Please enter a meeting ID or create one.");
 			return;
 		}
 		await getMeetingAndToken(meetingId); // join existing meeting
@@ -62,19 +63,8 @@ function JoinScreen({ getMeetingAndToken }) {
 	};
 
 	return (
-		<div
-			style={{
-				height: "100vh",
-				background: "#111",
-				color: "#fff",
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
-				gap: "10px",
-			}}
-		>
-			<h2>Join or Create a Meeting</h2>
+		<div className="d-flex flex-column align-items-center justify-content-center" style={{ height: "100vh", gap: "12px" }}>
+			<h2 className="brand-gradient">Join or Create a Meeting</h2>
 
 			<input
 				type="text"
@@ -82,40 +72,21 @@ function JoinScreen({ getMeetingAndToken }) {
 				value={meetingId}
 				onChange={(e) => setMeetingId(e.target.value)}
 				style={{
-					padding: "8px",
-					borderRadius: "6px",
-					border: "1px solid #444",
-					width: "250px",
+					padding: "10px 12px",
+					borderRadius: "10px",
+					border: "1px solid #cfd8dc",
+					width: "280px",
 					textAlign: "center",
+					boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
 				}}
 			/>
 
 			<div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-				<button
-					onClick={handleJoin}
-					style={{
-						backgroundColor: "#28a745",
-						border: "none",
-						color: "#fff",
-						padding: "8px 16px",
-						borderRadius: "6px",
-						cursor: "pointer",
-					}}
-				>
+				<button onClick={handleJoin} className="btn-success-edu" style={{ padding: "10px 18px", borderRadius: "10px" }}>
 					Join Meeting
 				</button>
 
-				<button
-					onClick={handleCreate}
-					style={{
-						backgroundColor: "#007bff",
-						border: "none",
-						color: "#fff",
-						padding: "8px 16px",
-						borderRadius: "6px",
-						cursor: "pointer",
-					}}
-				>
+				<button onClick={handleCreate} className="btn-primary-edu" style={{ padding: "10px 18px", borderRadius: "10px" }}>
 					Create Meeting
 				</button>
 			</div>
@@ -158,7 +129,7 @@ const Meet = () => {
 			setToken(token);
 		} catch (err) {
 			console.error("❌ Error creating or joining meeting:", err);
-			alert("Something went wrong while joining the meeting. Check console for details.");
+			toast.error("Something went wrong while joining the meeting. Check console for details.");
 		}
 	};
 

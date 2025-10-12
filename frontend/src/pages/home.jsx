@@ -21,59 +21,18 @@ const Home = () => {
   return (
     <>
       <NAV />
-      <Container
-        fluid
-        className="d-flex justify-content-center align-items-center"
-        style={{ minHeight: "90vh" }}
-      >
-        <Card
-          style={{
-            width: "420px",
-            padding: "30px",
-            borderRadius: "15px",
-            border: "none",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
-            textAlign: "center",
-          }}
-        >
-          <h2 className="mb-4" style={{ fontWeight: "600", color: "#0d6efd" }}>
-            Welcome
-          </h2>
-          <p className="mb-4 text-muted">Choose an option to continue</p>
-          <div className="d-grid gap-3">
-            <Button
-              onClick={handlePreviousYearPaper}
-              size="lg"
-              style={{
-                borderRadius: "10px",
-                padding: "12px",
-                fontWeight: "500",
-              }}
-            >
+      <Container fluid className="hero-wrap">
+        <Card className="elevated-card p-4 text-center" style={{ width: "440px" }}>
+          <h2 className="mb-2 fw-semibold brand-gradient">Welcome</h2>
+          <p className="mb-4">Choose an option to continue</p>
+          <div className="d-grid gap-3 home-actions">
+            <Button onClick={handlePreviousYearPaper} size="lg" className="btn-primary-edu" style={{ borderRadius: "10px", padding: "12px" }}>
               📘 Download Homework
             </Button>
-            <Button
-              onClick={handleUploadPaper}
-              variant="success"
-              size="lg"
-              style={{
-                borderRadius: "10px",
-                padding: "12px",
-                fontWeight: "500",
-              }}
-            >
+            <Button onClick={handleUploadPaper} size="lg" className="btn-success-edu" style={{ borderRadius: "10px", padding: "12px" }}>
               ⬆️ Upload Homework
             </Button>
-            <Button
-              onClick={handleMeet}
-              variant="dark"
-              size="lg"
-              style={{
-                borderRadius: "10px",
-                padding: "12px",
-                fontWeight: "500",
-              }}
-            >
+            <Button onClick={handleMeet} size="lg" className="btn-accent-edu" style={{ borderRadius: "10px", padding: "12px" }}>
               Ⓜ️ Class Meet
             </Button>
           </div>

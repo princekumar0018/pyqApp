@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Container, Form, Button, Spinner, Alert, Card } from "react-bootstrap";
+import { Container, Form, Button, Spinner, Card } from "react-bootstrap";
+import toast from 'react-hot-toast';
 import Cookies from "js-cookie";
 import axios from "axios";
 
@@ -43,6 +44,7 @@ const AdminUploadPage = () => {
 
       if (response.status === 200) {
         setSubmitSuccess(true);
+        toast.success('✅ File uploaded successfully!');
         setFilename("");
         setYear("");
         setExamType("");
@@ -50,32 +52,18 @@ const AdminUploadPage = () => {
       }
     } catch (err) {
       console.error(err);
-      setSubmitError("An error occurred while uploading the file.");
+      const msg = "An error occurred while uploading the file.";
+      setSubmitError(msg);
+      toast.error(`❌ ${msg}`);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <Container
-      className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "100vh" }}
-    >
-      <Card
-        style={{
-          maxWidth: "500px",
-          padding: "30px",
-          borderRadius: "15px",
-          border: "none",
-          boxShadow: "0 6px 20px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <h2
-          className="text-center mb-4"
-          style={{ fontWeight: "600", color: "#0d6efd" }}
-        >
-          Admin Upload
-        </h2>
+    <Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh" }}>
+      <Card className="elevated-card" style={{ maxWidth: "560px", padding: "28px" }}>
+        <h2 className="text-center mb-4 fw-semibold brand-gradient">Admin Upload</h2>
 
         <Form onSubmit={handleSubmit}>
           {/* Filename */}
@@ -116,7 +104,7 @@ const AdminUploadPage = () => {
 
           {/* Exam Type */}
           <Form.Group controlId="formExamType" className="mb-3">
-            <Form.Label style={{ fontWeight: "500" }}>Exam Type</Form.Label>
+            <Form.Label style={{ fontWeight: "500" }}>Homework Type</Form.Label>
             <Form.Select
               value={examType}
               onChange={handleExamTypeChange}
@@ -126,9 +114,9 @@ const AdminUploadPage = () => {
                 border: "1px solid #ced4da",
               }}
             >
-              <option value="">Select exam type</option>
-              <option value="1">End Sem</option>
-              <option value="2">Mid Sem</option>
+              <option value="">Select homework type</option>
+              <option value="1">Final</option>
+              <option value="2">Mid</option>
             </Form.Select>
           </Form.Group>
 
@@ -146,18 +134,7 @@ const AdminUploadPage = () => {
           </Form.Group>
 
           {/* Submit Button */}
-          <Button
-            variant="primary"
-            type="submit"
-            className="w-100"
-            style={{
-              borderRadius: "10px",
-              padding: "12px",
-              fontWeight: "500",
-              fontSize: "16px",
-            }}
-            disabled={!file || !filename || !year || !examType || loading}
-          >
+          <Button type="submit" className="w-100 btn-primary-edu" style={{ borderRadius: "10px", padding: "12px" }} disabled={!file || !filename || !year || !examType || loading}>
             {loading ? (
               <>
                 <Spinner animation="border" size="sm" /> Uploading...
@@ -168,25 +145,7 @@ const AdminUploadPage = () => {
           </Button>
         </Form>
 
-        {/* Success & Error Alerts */}
-        {submitSuccess && (
-          <Alert
-            variant="success"
-            className="mt-3 text-center"
-            style={{ borderRadius: "10px" }}
-          >
-            ✅ File uploaded successfully!
-          </Alert>
-        )}
-        {submitError && (
-          <Alert
-            variant="danger"
-            className="mt-3 text-center"
-            style={{ borderRadius: "10px" }}
-          >
-            ❌ {submitError}
-          </Alert>
-        )}
+        {/* Success & error are now shown via toasts */}
       </Card>
     </Container>
   );

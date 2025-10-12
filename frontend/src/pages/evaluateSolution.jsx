@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Card, Form, Button, Alert, Spinner, Row, Col, Badge, ProgressBar } from "react-bootstrap";
+import toast from 'react-hot-toast';
 import axios from "axios";
 import JSON5 from "json5";
 import Cookies from "js-cookie";
@@ -183,6 +184,7 @@ const EvaluateSolution = () => {
 
         if (!modelFile || !studentFile) {
             setError("Please upload both files before submitting.");
+            toast.error('Please upload both files before submitting.');
             return;
         }
 
@@ -281,6 +283,7 @@ const EvaluateSolution = () => {
         } catch (err) {
             console.error(err);
             setError("Error evaluating the solutions. Please try again.");
+            toast.error('Error evaluating the solutions. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -290,7 +293,7 @@ const EvaluateSolution = () => {
         if (result) {
             // Copy the nicely formatted string instead of raw JSON
             navigator.clipboard.writeText(formatResult(result));
-            alert("✅ Result copied to clipboard!");
+            toast.success("✅ Result copied to clipboard!");
         }
     };
 
@@ -518,7 +521,7 @@ const EvaluateSolution = () => {
                             {/* Left: Upload and controls */}
                             <Col xs={12} md={5} style={{ borderRight: "1px solid #e9ecef" }}>
                                 <div className="d-flex align-items-center mb-4">
-                                    <h4 style={{ margin: 5, color: "#0d6efd" }}>🧠 Evaluate Paper</h4>
+                                    <h4 style={{ margin: 5, color: "#0d6efd" }}>🧠 Evaluate Homework</h4>
                                     <small className="ms-2 text-muted">(Upload model & student PDFs)</small>
                                 </div>
 

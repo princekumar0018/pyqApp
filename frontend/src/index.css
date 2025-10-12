@@ -1,28 +1,242 @@
+/* =====================
+   Global Theme Variables
+   ===================== */
+:root {
+  /* Educational palette: calm, professional blues/greens with warm accents */
+  --color-primary: #1e88e5; /* primary blue */
+  --color-primary-600: #1565c0;
+  --color-primary-50: #e3f2fd;
+  --color-secondary: #4caf50; /* lighter learning green */
+  --color-secondary-50: #e8f5e9;
+  --color-accent: #f9a825; /* warm accent for calls-to-action */
+  --color-bg: #f7f9fc; /* app background */
+  --color-surface: #ffffff; /* cards, surfaces */
+  --color-text: #1f2937; /* high-contrast gray */
+  --color-text-muted: #6b7280;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 6px 20px rgba(0,0,0,0.10);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+}
+
+/* Base resets and typography */
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-text);
+  margin: 0 0 0.5rem 0;
+}
+
+p { color: var(--color-text-muted); }
+
+/* Utility classes */
+.app-container {
+  min-height: 100vh;
+}
+
+.elevated-card {
+  background: var(--color-surface);
+  border: none;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+
+/* Themed buttons with golden hover/active states */
+.btn-primary-edu,
+.btn-success-edu,
+.btn-accent-edu,
+.btn-outline-edu {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease-in-out;
+}
+/* Dedicated dark/black button */
+.btn-dark-edu {
+  background: #111111;
+  border: 1px solid #111111;
+  color: #ffffff;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.05s ease-in-out;
+}
+.btn-dark-edu:hover,
+.btn-dark-edu:focus {
+  background: #000000;
+  border-color: #000000;
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+.btn-dark-edu:active {
+  background: #1b1b1b;
+  border-color: #1b1b1b;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Dedicated gold button (filled) */
+.btn-gold-edu {
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  color: #1f2937;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-gold-edu:hover,
+.btn-gold-edu:focus {
+  background: #e09f14;
+  border-color: #e09f14;
+  color: #1f2937;
+  box-shadow: 0 4px 10px rgba(249,168,37,0.25);
+}
+.btn-gold-edu:active {
+  background: #c88910;
+  border-color: #c88910;
+  color: #1f2937;
+  box-shadow: 0 2px 6px rgba(249,168,37,0.2);
+}
+
+.btn-primary-edu {
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: #fff;
+}
+.btn-success-edu {
+  background: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+  color: #fff;
+}
+.btn-accent-edu {
+  background: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  color: #1f2937;
+}
+
+/* Unified golden hover/focus for all themed buttons */
+.btn-primary-edu:hover,
+.btn-primary-edu:focus,
+.btn-success-edu:hover,
+.btn-success-edu:focus,
+.btn-accent-edu:hover,
+.btn-accent-edu:focus,
+.btn-outline-edu:hover,
+.btn-outline-edu:focus {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: #1f2937 !important;
+  box-shadow: 0 4px 10px rgba(249,168,37,0.25);
+}
+
+/* Active/pressed state */
+.btn-primary-edu:active,
+.btn-success-edu:active,
+.btn-accent-edu:active,
+.btn-outline-edu:active {
+  background: #e09f14 !important; /* slightly darker gold */
+  border-color: #e09f14 !important;
+  color: #1f2937 !important;
+  box-shadow: 0 2px 6px rgba(249,168,37,0.2);
+}
+
+.hero-wrap {
+  min-height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand-gradient {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #42a5f5 50%, var(--color-secondary) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Navbar refinement */
+.edu-navbar {
+  background: var(--color-surface) !important;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: saturate(120%) blur(6px);
+}
+
+.btn-outline-edu {
+  background: transparent;
+  color: var(--color-text);
+  border: 2px solid var(--color-primary);
+}
+
+
+/* Form and input polish */
+.form-control, .form-select {
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  border-color: #cfd8dc !important;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(30, 136, 229, 0.15) !important;
+}
+
+.card-title {
+  color: var(--color-text);
+}
+
+/* Home page: force black hover/active for the primary actions */
+.home-actions .btn-primary-edu:hover,
+.home-actions .btn-primary-edu:active,
+.home-actions .btn-success-edu:hover,
+.home-actions .btn-success-edu:active,
+.home-actions .btn-accent-edu:hover,
+.home-actions .btn-accent-edu:active {
+  background: #B0CE88 !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+/* Admin Panel: mirror Home page hover/active behavior */
+.admin-actions .btn-primary-edu:hover,
+.admin-actions .btn-primary-edu:active,
+.admin-actions .btn-success-edu:hover,
+.admin-actions .btn-success-edu:active,
+.admin-actions .btn-accent-edu:hover,
+.admin-actions .btn-accent-edu:active {
+  background: #B0CE88 !important;
+  border-color: #fff !important;
+  color: #fff !important;
+}
+
+/* Existing PDF view styles (kept) */
 .pdf-div{
-    padding: 50px;
-    background-color:whitesmoke;
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-  }
-
-  .page-container {
-    margin: 20px;
-    text-align: center;
-}
-
-  canvas.react-pdf__Page__canvas {
-    margin-bottom: 50px;
-  }
-  #viewMessage{
-    color:rgb(35, 239, 35);
-    text-align: center;
-  }
-  /* .pdf-div{
   padding: 50px;
-  background-color: #dedede;
+  background-color: whitesmoke;
   margin-top: 50px;
+  display: flex;
+  justify-content: center;
 }
+
+.page-container {
+  margin: 20px;
+  text-align: center;
+}
+
 canvas.react-pdf__Page__canvas {
   margin-bottom: 50px;
-} */
+}
+
+#viewMessage{
+  color: rgb(35, 239, 35);
+  text-align: center;
+}
+
+/*
+Alternative older styles retained for reference
+.pdf-div{ padding: 50px; background-color: #dedede; margin-top: 50px; }
+canvas.react-pdf__Page__canvas { margin-bottom: 50px; }
+*/

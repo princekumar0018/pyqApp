@@ -1,4 +1,5 @@
 import './App.css'
+import { Toaster } from 'react-hot-toast'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import Previous from './pages/previous';
@@ -15,6 +16,7 @@ function App() {
     // <style></style>
     <div id='App'>
       <BrowserRouter>
+        <Toaster position="top-center" toastOptions={{ duration: 2000 }} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/previous" element={<Previous />} />

@@ -110,26 +110,10 @@ const Previous = () => {
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundImage: "url('/images/bg.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        paddingTop: "50px",
-      }}
-    >
+    <div style={{ minHeight: "100vh", paddingTop: "80px" }}>
       <div className="d-flex justify-content-center">
-        <Card
-          className="p-4"
-          style={{
-            maxWidth: "600px",
-            borderRadius: "12px",
-            boxShadow: "0 4px 15px rgba(0,0,0,0.2)",
-            background: "rgba(255,255,255,0.95)",
-          }}
-        >
-          <h1 className="mb-4 text-center">📘 Previous Year Paper</h1>
+        <Card className="p-4 elevated-card" style={{ maxWidth: "640px" }}>
+          <h1 className="mb-4 text-center brand-gradient">📘 Homework</h1>
           <Form>
             <Form.Group controlId="subjectCode" className="mb-3">
               <Form.Label>Homework Code</Form.Label>
@@ -137,7 +121,7 @@ const Previous = () => {
                 type="text"
                 value={subjectCode}
                 onChange={(e) => setSubjectCode(e.target.value)}
-                placeholder="Enter Subject Code"
+                placeholder="Enter Homework Code"
                 required
               />
             </Form.Group>
@@ -189,12 +173,7 @@ const Previous = () => {
 
             <Row className="mt-4">
               <Col>
-                <Button
-                  variant="primary"
-                  onClick={handleView}
-                  className="w-100"
-                  disabled={loading || viewLoading}
-                >
+                <Button onClick={handleView} className="w-100 btn-primary-edu" disabled={loading || viewLoading}>
                   {viewLoading ? (
                     <Spinner size="sm" animation="border" />
                   ) : (
@@ -203,12 +182,7 @@ const Previous = () => {
                 </Button>
               </Col>
               <Col>
-                <Button
-                  variant="success"
-                  onClick={handleDownload}
-                  className="w-100"
-                  disabled={loading || viewLoading}
-                >
+                <Button onClick={handleDownload} className="w-100 btn-success-edu" disabled={loading || viewLoading}>
                   {loading ? (
                     <Spinner size="sm" animation="border" />
                   ) : (

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import toast from 'react-hot-toast';
 import { Form, Button, Card, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -64,15 +65,15 @@ function UploadForm() {
 
       console.log(response.data.message);
       if (response.data.status === 1) {
-        alert("✅ File uploaded successfully");
+  toast.success("✅ File uploaded successfully");
         navigate("/");
       } else {
-        alert("⚠️ Try again after some time");
+  toast.error("⚠️ Try again after some time");
         window.location.reload(true);
       }
     } catch (error) {
       console.error("Error uploading file:", error);
-      alert("❌ Please provide necessary details");
+  toast.error("❌ Please provide necessary details");
       window.location.reload(true);
     } finally {
       setLoading(false);
@@ -80,26 +81,10 @@ function UploadForm() {
   };
 
   return (
-    <div
-      className="d-flex align-items-center justify-content-center"
-      style={{ minHeight: "100vh", background: "#f8f9fa" }}
-    >
-      <Card
-        style={{
-          width: "480px",
-          padding: "30px",
-          borderRadius: "15px",
-          border: "none",
-          boxShadow: "0 6px 20px rgba(0,0,0,0.1)",
-        }}
-      >
+    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+      <Card className="elevated-card" style={{ width: "520px", padding: "28px" }}>
         <Card.Body>
-          <h2
-            className="text-center mb-4"
-            style={{ fontWeight: "600", color: "#0d6efd" }}
-          >
-            Homework Upload
-          </h2>
+          <h2 className="text-center mb-4 fw-semibold brand-gradient">Homework Upload</h2>
           <Form onSubmit={handleUpload}>
             <Form.Group className="mb-3" controlId="formGroupCollege">
               <Form.Label style={{ fontWeight: "500" }}>Select Teacher</Form.Label>
@@ -151,9 +136,9 @@ function UploadForm() {
               />
             </Form.Group>
 
-            {/* ✅ Exam Type Dropdown */}
+            {/* ✅ Homework Type Dropdown */}
             {/* <Form.Group className="mb-3" controlId="formGroupExamType">
-              <Form.Label style={{ fontWeight: "500" }}>Exam Type</Form.Label>
+              <Form.Label style={{ fontWeight: "500" }}>Homework Type</Form.Label>
               <Form.Select
                 name="examType"
                 value={formData.examType}
@@ -161,7 +146,7 @@ function UploadForm() {
                 required
                 style={{ borderRadius: "10px", padding: "12px" }}
               >
-                <option value="">Select Exam Type</option>
+                <option value="">Select Homework Type</option>
                 <option value="2">Mid Semester</option>
                 <option value="1">End Semester</option>
               </Form.Select>
@@ -179,10 +164,9 @@ function UploadForm() {
             </Form.Group>
 
             <Button
-              variant="primary"
+              className="btn-primary-edu"
               type="submit"
               disabled={loading}
-              className="w-100"
               style={{
                 borderRadius: "10px",
                 padding: "12px",
