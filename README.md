@@ -1,17 +1,18 @@
-# PYQ
+### 🧠 Smart Classroom Platform — MERN + Gemini AI
 
-A simple web application for managing and accessing **Previous Year Question Papers (PYQs)**.
+An AI-powered Smart Classroom Web App that integrates real-time video conferencing, automatic class summarization, homework uploads, and AI-based homework evaluation.
+Built using the MERN stack and Google Gemini AI, this platform enhances the online teaching and learning experience for both teachers and students.
 
 ## 🚀 Live Demo
 
-[Click here to view the deployed app](https://shashankpyq007.netlify.app/)
+[Click here to view the deployed app](https://virtualclassrooms.netlify.app/)
 
 ## 📌 Features
 
-- Upload and manage PYQs
-- Search for question papers
-- Download verified files
-- Simple and user-friendly interface
+1. Video Conferencing (Meet)
+2. AI Summarizer (Live Notes)
+3. Homework Upload
+4. AI Homework Evaluator
 
 ## 🛠 Tech Stack
 
@@ -26,7 +27,6 @@ To run locally:
 1. Clone the repository
 
    ```bash
-   git clone https://github.com/shashankshekhar2004/PYQApp.git
+   git clone https://github.com/shashankshekhar2004/virtualClassroom.git
 
-   "# PYQApp"
-   ```
+ 
